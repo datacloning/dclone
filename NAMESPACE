@@ -41,6 +41,7 @@ importFrom("stats", "quantile", "update",
       "coef", "vcov", "confint")
 importFrom("coda", "as.mcmc.list")
 importFrom("utils", "stack")
+importFrom("Matrix", "nearPD")
 
 ## export methods for main dclone functions/classes
 export(dcsd.mcmc.list, 

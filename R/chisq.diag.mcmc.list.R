@@ -1,16 +1,14 @@
-chisq.diag.mcmc.list <- 
+chisq.diag.mcmc.list <-
 function(x, ...)
 {
     mcmc <- as.matrix(x)
     mn <- coef(x)
     npar <- length(mn)
     ## inverse of the var-cov matrix of the posterior
-    vci <- solve(var(mcmc))
-#    vci <- try(solve(var(mcmc)), silent=TRUE)
-#    if (inherits(vci, "try-error")) {
-#        require(corpcor)
-#        vci <- pseudoinverse(var(mcmc))
-#    }
+#    vci <- solve(var(mcmc))
+    vci <- try(solve(var(mcmc)), silent=TRUE)
+    if (inherits(vci, "try-error"))
+        vci <- solve(as.matrix(Matrix::nearPD(var(mcmc))$mat))
     ## theoretical quantiles for the Chi-square distribution
     n <- nrow(mcmc)
     pval <- (seq_len(n) - 0.5) / n
