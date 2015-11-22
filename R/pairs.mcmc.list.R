@@ -1,9 +1,9 @@
-pairs.mcmc.list <- 
-function(x, n = 25, col = 1:length(x), 
+pairs.mcmc.list <-
+function(x, n = 25, col = 1:length(x),
 col.hist = "gold", col.image = terrain.colors(50),
-density = TRUE, contour = TRUE, mean = TRUE, ...) 
+density = TRUE, contour = TRUE, mean = TRUE, ...)
 {
-    require(MASS)
+    requireNamespace("MASS")
     ind <- t(matrix(1:(niter(x)*length(x)), niter(x), length(x)))
     dim(ind) <- NULL
     y <- as.matrix(x)[ind,]
@@ -41,7 +41,7 @@ density = TRUE, contour = TRUE, mean = TRUE, ...)
     }
     fun.lower <- if (contour || density)
         fun.lower0 else fun.upper
-    pairs.default(y, labels=varnames(x), lower.panel=fun.lower, 
+    pairs.default(y, labels=varnames(x), lower.panel=fun.lower,
         upper.panel=fun.upper, diag.panel=panel.hist.density)
     invisible(NULL)
 }

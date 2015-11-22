@@ -1,8 +1,8 @@
 snowWrapper <-
 function(cl, seq, fun, cldata, name = "cldata", use.env = FALSE,
 lib = NULL, dir = NULL, evalq = NULL,
-size = 1, balancing = c("none", "load", "size", "both"), 
-rng.type = c("none", "RNGstream", "SPRNG"), 
+size = 1, balancing = c("none", "load", "size", "both"),
+rng.type = c("none", "RNGstream", "SPRNG"),
 cleanup = TRUE, unload = FALSE, envir = .GlobalEnv, ...)
 {
     warning("'snowWrapper' IS DEPRECATED. USE 'parDosa' INSTEAD!")
@@ -10,7 +10,7 @@ cleanup = TRUE, unload = FALSE, envir = .GlobalEnv, ...)
     ## get defaults right for cl argument
     cl <- evalParallelArgument(cl, quit=TRUE)
 ## common stuff for snow and multicore
-    rng.type <- match.arg(rng.type) 
+    rng.type <- match.arg(rng.type)
     ## if object name exists in envir, make a copy as tmp, and put back in the end
     if (!use.env && exists(name, envir=envir)) {
         assign("tmp", get(name, envir=envir))
@@ -29,7 +29,7 @@ cleanup = TRUE, unload = FALSE, envir = .GlobalEnv, ...)
     ## this is a feature that needs to be incorporated at some point
 ## snow cluster
     if (inherits(cl, "cluster")) {
-        require(snow)
+        requireNamespace("snow")
         balancing <- match.arg(balancing)
         ## loads lib on each worker
         if (!is.null(lib)) {
@@ -79,12 +79,12 @@ cleanup = TRUE, unload = FALSE, envir = .GlobalEnv, ...)
         if (unload && !is.null(lib)) {
             for (i in lib)
                 if (!(i %in% pkglist))
-                    eval(parse(text=paste("clusterEvalQ(cl, detach(package:", 
+                    eval(parse(text=paste("clusterEvalQ(cl, detach(package:",
                         i, ", unload=TRUE))", sep="")))
         }
     } else {
 ## multicore
-        #require(parallel)
+        #require parallel
         if (balancing == "load") {
             balancing <- "none"
             warning("forking is used: balancing type was set to 'none'")
@@ -96,9 +96,9 @@ cleanup = TRUE, unload = FALSE, envir = .GlobalEnv, ...)
         res <- mclapplySB(seq, fun, ...,
             mc.preschedule = (balancing == "none"), # no need to preschedule when SB
             mc.set.seed = !(rng.type == "none"),
-            mc.silent = as.logical(getOption("dcoptions")$verbose), 
+            mc.silent = as.logical(getOption("dcoptions")$verbose),
             mc.cores = cl,
-            mc.cleanup = cleanup, 
+            mc.cleanup = cleanup,
             mc.allow.recursive = FALSE, # no need for recursive forking
             size = size)
     }

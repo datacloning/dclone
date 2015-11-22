@@ -1,5 +1,5 @@
 bugs.parfit <-
-function(cl, data, params, model, inits=NULL, 
+function(cl, data, params, model, inits=NULL,
 n.chains = 3, seed,
 program=c("winbugs", "openbugs", "brugs"), ...) ## only mcmc.list format is supported when cl is not NULL
 {
@@ -7,18 +7,18 @@ program=c("winbugs", "openbugs", "brugs"), ...) ## only mcmc.list format is supp
     cl <- evalParallelArgument(cl, quit=TRUE)
     ## sequential evaluation falls back on jags.fit
     if (is.null(cl)) {
-        return(bugs.fit(data, params, model, 
+        return(bugs.fit(data, params, model,
             inits = inits, n.chains = n.chains, seed=seed, ...))
     }
     ## parallel evaluation starts here
     ## not case sensitive evaluation of program arg
     program <- match.arg(tolower(program), c("winbugs", "openbugs", "brugs"))
 
-    if (program %in% c("winbugs", "brugs") && !suppressWarnings(require(R2WinBUGS)))
+    if (program %in% c("winbugs", "brugs") && !suppressWarnings(requireNamespace("R2WinBUGS")))
         stop("there is no package called 'R2WinBUGS'")
-    if (program == "brugs" && !suppressWarnings(require(BRugs)))
+    if (program == "brugs" && !suppressWarnings(requireNamespace("BRugs")))
         stop("there is no package called 'BRugs'")
-    if (program == "openbugs" && !suppressWarnings(require(R2OpenBUGS)))
+    if (program == "openbugs" && !suppressWarnings(requireNamespace("R2OpenBUGS")))
         stop("there is no package called 'R2OpenBUGS'")
 
     if (is.environment(data)) {
@@ -61,7 +61,7 @@ program=c("winbugs", "openbugs", "brugs"), ...) ## only mcmc.list format is supp
         }
     }
 
-    
+
     if (is.null(inits))
         inits <- lapply(1:n.chains, function(i) NULL)
     if (is.function(inits))
@@ -70,15 +70,15 @@ program=c("winbugs", "openbugs", "brugs"), ...) ## only mcmc.list format is supp
         stop("inits length incompatible with n.chains")
 
     ## common data to cluster
-    cldata <- list(data=data, params=params, model=model, inits=inits, 
+    cldata <- list(data=data, params=params, model=model, inits=inits,
         seed=seed, program=program)
     ## parallel function to evaluate by snowWrapper
     bugsparallel <- function(i, ...)   {
         cldata <- pullDcloneEnv("cldata", type = "model")
-        bugs.fit(data=cldata$data, params=cldata$params, 
-            model=cldata$model, 
-            inits=cldata$inits[[i]], n.chains=1, 
-            seed=cldata$seed[i], 
+        bugs.fit(data=cldata$data, params=cldata$params,
+            model=cldata$model,
+            inits=cldata$inits[[i]], n.chains=1,
+            seed=cldata$seed[i],
             program=cldata$program, format="mcmc.list", ...)
     }
     if (trace) {
@@ -98,10 +98,10 @@ program=c("winbugs", "openbugs", "brugs"), ...) ## only mcmc.list format is supp
     if (program == "openbugs")
         LIB <- c(LIB, "R2OpenBUGS")
 
-    mcmc <- parDosa(cl, 1:n.chains, bugsparallel, cldata, 
-        lib=LIB, 
-        balancing=balancing, size=1, 
-        rng.type=getOption("dcoptions")$RNG, cleanup=TRUE, dir=dir, 
+    mcmc <- parDosa(cl, 1:n.chains, bugsparallel, cldata,
+        lib=LIB,
+        balancing=balancing, size=1,
+        rng.type=getOption("dcoptions")$RNG, cleanup=TRUE, dir=dir,
         unload=FALSE, ...)
     ## binding the chains
     res <- as.mcmc.list(lapply(mcmc, as.mcmc))
