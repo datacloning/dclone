@@ -3,13 +3,13 @@ function(x, n = 25, col = 1:length(x),
 col.hist = "gold", col.image = terrain.colors(50),
 density = TRUE, contour = TRUE, mean = TRUE, ...)
 {
-    requireNamespace("MASS")
+    #requireNamespace("MASS")
     ind <- t(matrix(1:(niter(x)*length(x)), niter(x), length(x)))
     dim(ind) <- NULL
     y <- as.matrix(x)[ind,]
     COL <- rep(col, niter(x))
     fun.lower0 <- function(x1, x2, ...) {
-        d <- kde2d(x1, x2, n=n)
+        d <- MASS::kde2d(x1, x2, n=n)
         if (density)
             image(d, col=col.image, add=TRUE)
         if (mean)
