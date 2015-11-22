@@ -6,7 +6,7 @@ mc.cleanup = TRUE, mc.allow.recursive = TRUE,
 size = 1)
 {
     if (length(unique(size) == 1)) {
-        res <- mclapply(X, 
+        res <- parallel::mclapply(X, 
             FUN, ..., 
             mc.preschedule = mc.preschedule, 
             mc.set.seed = mc.set.seed,
@@ -19,7 +19,7 @@ size = 1)
         id <- clusterSplitSB(1:mc.cores, 1:length(X), size)
         mcfun <- function(x, ...)
             lapply(x, FUN, ...)
-        res <- mclapply(s, 
+        res <- parallel::mclapply(s, 
             mcfun, ..., 
             mc.preschedule = mc.preschedule, 
             mc.set.seed = mc.set.seed,
