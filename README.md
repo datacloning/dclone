@@ -26,7 +26,7 @@ Install the development version of the package from R using the
 devtools::install_github("datacloning/dclone")
 ```
 
-### Report a problem
+### <i class="fa fa-bug"></i> Report a problem
 
 Use the [issue tracker](https://github.com/datacloning/dclone/issues)
 to report a problem.
