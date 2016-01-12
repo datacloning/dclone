@@ -53,10 +53,16 @@ importFrom("graphics", "abline", "axis", "box", "hist", "image",
       "legend", "lines", "pairs.default", "par", "plot",
       "plot.new", "plot.window", "points", "polygon", "rect",
       "rug", "text", "title")
-importFrom("methods", "as")
+#importFrom("methods", "as")
 importFrom("stats", "cor", "cov", "qchisq", "qnorm", "qqplot", "sd",
       "time", "var")
 importFrom("utils", "flush.console")
+importFrom("coda", "varnames", "nchain", "mcmc", "as.mcmc",
+      "nvar", "gelman.diag", "niter")
+importFrom("parallel", "clusterSplit", "clusterEvalQ", "parLapply",
+      "clusterExport", "clusterApplyLB", "clusterApply", "clusterCall")
+importFrom("snow", "clusterSetupRNG", "docall")
+importFrom("rjags", "coda.samples", "list.modules")
 
 ## export methods for main dclone functions/classes
 export(dcsd.mcmc.list,
