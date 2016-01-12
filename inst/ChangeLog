@@ -1,5 +1,10 @@
 # dclone package version history
 
+## Version 2.1-1, Jan 11, 2016
+
+    * Extensive NAMESPACE changes to import from other packages.
+    * Import: rjags and snow, so that functions can be imported by NAMESPACE.
+
 ## Version 2.1-0, Nov 22, 2015
 
     * Matrix as dependency: finding nearestPD in chisq.diag.
@@ -7,16 +12,16 @@
 ## Version 2.0-0, Sept 27, 2013
 
     * Parallel functions (parJagsModel, parUpdate, parCodaSamples)
-      triggered a Note by R CMD check for modifying the global 
+      triggered a Note by R CMD check for modifying the global
       environment. This is now resolved as described below.
     * New function: parDosa (meaning: wolf spider). This
       replaces the snowWrapper. It comes with 2 hidden environments
       (.DcloneEnvModel, .DcloneEnvResults) defined as global variables.
       The .DcloneEnvModel is meant to store temporary objects
       for model fitting, and swiped clean after use.
-      The .DcloneEnvResults is meant to store result objects on the 
+      The .DcloneEnvResults is meant to store result objects on the
       workers.
-    * These environments come with functions for manipulating them: 
+    * These environments come with functions for manipulating them:
       pullDcloneEnv, pushDcloneEnv, clearDcloneEnv, listDcloneEnv,
       existsDcloneEnv.
     * snowWraper is now deprecated with a warning.
@@ -56,7 +61,7 @@
 
 ## Version 1.8-1, September 3, 2012
 
-    * clusterSplit now checks inheritence of its cl argument in
+    * clusterSplit now checks inheritance of its cl argument in
       R-devel (2.16.0 to be), as a result plotClusterSize
       threw an error when supplying a simple vector to clusterSplit
       (reported by B Ripley), this is now fixed.
@@ -108,11 +113,11 @@
       with partype="both" in dc.parfit. This option is
       defunct at the moment.
     * Windows specific suggested packages removed from dependency
-      list due to seamless Linux based testing of 
+      list due to seamless Linux based testing of
       forking type parallel features (rsprng, BRugs).
     * cl argument in parallelized functions that
-      use snowWrapper can be NULL in which case it 
-      takes the value from the mc.cores global option 
+      use snowWrapper can be NULL in which case it
+      takes the value from the mc.cores global option
       getOption("mc.cores"). If mc.cores is not set (NULL)
       of 1, an error is produced.
     * mclapplySB added to mimic size balancing with forking.
@@ -122,11 +127,11 @@
     * evalParallelArgument added for consistent handling
       of parallel arguments.
     * jags.parfit and dc.parfit falls back to sequential
-      evaluation if cl is NULL (and default options for 
+      evaluation if cl is NULL (and default options for
       parallel processing are unset) or 1.
     * stack method for mcmc.list objects to facilitate
-      creating graphics with lattice and ggplot2. 
-      Experimental ggplot2 based plotting functions are in 
+      creating graphics with lattice and ggplot2.
+      Experimental ggplot2 based plotting functions are in
       dcextras package on R-Forge.
     * The package was extensively tested on Windows XP and 7
       (32 and 64 bit) and Ubuntu Linux 11.10 using
@@ -150,9 +155,9 @@
 ## Version 1.5-0, October 17, 2011
 
     * Major CRAN release with improved parallel features
-      (double initialization overhead is removed); 
+      (double initialization overhead is removed);
       with bugfixes from devel versions.
-    * The package also has bee extensively tested using 
+    * The package also has bee extensively tested using
       Classic BUGS examples (see ChangeLog for dcmle package).
 
 ## Version 1.4-2, October 16, 2011
@@ -202,7 +207,7 @@
       around jags.model and coda.samples functions of
       rjags package to track dclone information passed
       through data argument and allow custommodel
-      specification of model argument (similarly to par* 
+      specification of model argument (similarly to par*
       versions of similar functions).
     * .onLoad added to zzz.R
 
@@ -227,7 +232,7 @@
     * data argument can be environment,
       it is coerced to a list for handling n.clones attribute.
     * jags.fit: quiet argument of jags.model used along with
-      verbose dcoption to possibly suppress printout 
+      verbose dcoption to possibly suppress printout
       during compilation.
     * Parallel functionality added replicating main rjags functions
       to allow easy updating of jags model objects.
@@ -235,7 +240,7 @@
       parListFactories, parSetFactory, parJagsModel, parUpdate,
       parCodaSamples, parUpdate; with help pages taken and edited from
       rjags package of M Plummer.
-    * .DcloneEnv is created at startup, and removed on unloading 
+    * .DcloneEnv is created at startup, and removed on unloading
       dclone. This is intended to store temporary stuff passed
       to workers by snowWrapper.
     * snowWrapper got new argument: unload=FALSE to unload
@@ -388,7 +393,7 @@
     * jags.fit: if n.iter=0, the (updated) JAGS model is returned
       instead of an MCMC object.
     * update.mcmc.list: function to perform automatic updates of an
-      MCMC object, until a desired statistics value 
+      MCMC object, until a desired statistics value
       (e.g. R_hat < 1.1) reached.
 
 ## Version 1.0-2, December 4, 2009
