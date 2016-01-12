@@ -1,4 +1,4 @@
-## main dclone functions
+## exporting main dclone functions
 export("dclone", "dcdim", "dciid", "dctr",
        "jags.fit", "bugs.fit", "dc.fit", ".dcFit",
        "clean.jags.model", "write.jags.model", "custommodel",
@@ -8,64 +8,78 @@ export("dclone", "dcdim", "dciid", "dctr",
        "mcmcapply",
        "make.symmetric",
        "dctable", "extractdctable",
-       "dcdiag", "extractdcdiag", 
+       "dcdiag", "extractdcdiag",
        "lambdamax.diag", "chisq.diag",
        "dcoptions")
-## rjags remakes
+
+## exporting rjags remakes
 export("jagsModel", "codaSamples")
-## parallel functions
+
+## exporting parallel functions
 export("jags.parfit", "dc.parfit", "bugs.parfit",
-       "snowWrapper", 
+       "snowWrapper",
        "parDosa",
        "clusterSize", "plotClusterSize",
-       "clusterSplitSB", 
+       "clusterSplitSB",
        "parLapplySB", "parLapplySLB",
        "parallel.inits",
        "mclapplySB",
        "evalParallelArgument")
-## parallel rjags functions
+## exporting parallel rjags functions
 export("parListModules", "parLoadModule", "parUnloadModule",
-      "parListFactories", "parSetFactory", 
+      "parListFactories", "parSetFactory",
       "parJagsModel", "parUpdate", "parCodaSamples")
-## DcloneEnv
+
+## exporting DcloneEnv related functions
 export(pullDcloneEnv,
     pushDcloneEnv,
     clearDcloneEnv,
     listDcloneEnv,
     existsDcloneEnv)
-## graphical helper functions
+
+## exporting graphical helper functions
 export("errlines")
 
-## import from other packages
-importFrom("stats", "quantile", "update", 
+## imports from other packages
+importFrom("stats", "quantile", "update",
       "coef", "vcov", "confint")
 importFrom("coda", "as.mcmc.list")
 importFrom("utils", "stack")
 importFrom("Matrix", "nearPD")
 importFrom("parallel", "mclapply")
 
+importFrom("grDevices", "terrain.colors")
+importFrom("graphics", "abline", "axis", "box", "hist", "image",
+      "legend", "lines", "pairs.default", "par", "plot",
+      "plot.new", "plot.window", "points", "polygon", "rect",
+      "rug", "text", "title")
+importFrom("methods", "as")
+importFrom("stats", "cor", "cov", "qchisq", "qnorm", "qqplot", "sd",
+      "time", "var")
+importFrom("utils", "flush.console")
+
 ## export methods for main dclone functions/classes
-export(dcsd.mcmc.list, 
-        coef.mcmc.list, 
-        confint.mcmc.list.dc, 
-        vcov.mcmc.list.dc, 
-        vcov.mcmc.list, 
-        quantile.mcmc.list, 
-        dclone.default, 
-        dclone.list, 
-        dclone.environment, 
-        dclone.dcdim, 
-        dclone.dciid, 
-        dctable.default, 
-        extractdctable.default, 
-        plot.dctable, 
-        dcdiag.default, 
-        extractdcdiag.default, 
-        plot.dcdiag, 
-        errlines.default, 
-        nclones.list, 
-        nclones.default, 
-        pairs.mcmc.list, 
+export(dcsd.mcmc.list,
+        coef.mcmc.list,
+        confint.mcmc.list.dc,
+        vcov.mcmc.list.dc,
+        vcov.mcmc.list,
+        quantile.mcmc.list,
+        dclone.default,
+        dclone.list,
+        dclone.environment,
+        dclone.dcdim,
+        dclone.dciid,
+        dctable.default,
+        extractdctable.default,
+        plot.dctable,
+        dcdiag.default,
+        extractdcdiag.default,
+        plot.dcdiag,
+        errlines.default,
+        nclones.list,
+        nclones.default,
+        pairs.mcmc.list,
         update.mcmc.list,
         stack.mcmc.list,
         lambdamax.diag.mcmc.list,
