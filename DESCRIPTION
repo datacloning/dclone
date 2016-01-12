@@ -1,8 +1,8 @@
 Package: dclone
 Type: Package
 Title: Data Cloning and MCMC Tools for Maximum Likelihood Methods
-Version: 2.1-0
-Date: 2015-10-22
+Version: 2.1-1
+Date: 2016-01-11
 Author: Peter Solymos
 Maintainer: Peter Solymos <solymos@ualberta.ca>
 Description: Low level functions for implementing
@@ -18,7 +18,7 @@ Suggests: MASS, lattice, rjags (>= 3-5), R2WinBUGS,
 Imports: stats
 SystemRequirements: none, one or more of JAGS (>= 3.0.0), 
     WinBUGS (>= 1.4), OpenBUGS (>= 3.2.2)
-URL: http://cran.r-project.org/package=dclone, 
-    http://dcr.r-forge.r-project.org/
+URL: https://groups.google.com/forum/#!forum/dclone-users,
+    https://github.com/datacloning/dclone/issues, http://datacloning.org
 LazyLoad: yes
 LazyData: true
