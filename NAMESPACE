@@ -53,7 +53,7 @@ importFrom("graphics", "abline", "axis", "box", "hist", "image",
       "legend", "lines", "pairs.default", "par", "plot",
       "plot.new", "plot.window", "points", "polygon", "rect",
       "rug", "text", "title")
-#importFrom("methods", "as")
+importFrom("methods", "as")
 importFrom("stats", "cor", "cov", "qchisq", "qnorm", "qqplot", "sd",
       "time", "var")
 importFrom("utils", "flush.console")
