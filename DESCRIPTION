@@ -19,6 +19,7 @@ Imports: methods, stats, rjags (>= 3-5), snow
 SystemRequirements: none, one or more of JAGS (>= 3.0.0),
     WinBUGS (>= 1.4), OpenBUGS (>= 3.2.2)
 URL: https://groups.google.com/forum/#!forum/dclone-users,
-    https://github.com/datacloning/dclone/issues, http://datacloning.org
+    http://datacloning.org
+BugReports: https://github.com/psolymos/dclone/issues
 LazyLoad: yes
 LazyData: true
