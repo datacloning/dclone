@@ -73,6 +73,13 @@ Author: Peter Solymos
 Maintainer: Peter Solymos, \email{solymos@ualberta.ca}
 }
 \references{
+
+Forum: \url{https://groups.google.com/forum/#!forum/dclone-users}
+
+Issues: \url{https://github.com/datacloning/dcmle/issues}
+
+Data cloning website: \url{http://datacloning.org}
+
 Solymos, P., 2010. dclone: Data Cloning in R.
 \emph{The R Journal} \strong{2(2)}, 29--37.
 URL: \url{http://journal.r-project.org/archive/2010-2/RJournal_2010-2_Solymos.pdf}

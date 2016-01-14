@@ -1,5 +1,9 @@
 # dclone package version history
 
+## Version 2.1-2, Jan 14, 2016
+
+    *
+
 ## Version 2.1-1, Jan 11, 2016
 
     * Extensive NAMESPACE changes to import from other packages.
