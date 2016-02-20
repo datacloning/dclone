@@ -72,7 +72,7 @@ program=c("winbugs", "openbugs", "brugs"), ...) ## only mcmc.list format is supp
     ## common data to cluster
     cldata <- list(data=data, params=params, model=model, inits=inits,
         seed=seed, program=program)
-    ## parallel function to evaluate by snowWrapper
+    ## parallel function to evaluate by parDosa
     bugsparallel <- function(i, ...)   {
         cldata <- pullDcloneEnv("cldata", type = "model")
         bugs.fit(data=cldata$data, params=cldata$params,

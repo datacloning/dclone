@@ -49,7 +49,7 @@ function(cl, data, params, model, inits = NULL, n.chains = 3, ...)
 #        n.adapt=0, n.update=0, n.iter=0)$state(internal=TRUE)
     ## common data to cluster
     cldata <- list(data=data, params=params, model=model, inits=inits)
-    ## parallel function to evaluate by snowWrapper
+    ## parallel function to evaluate by parDosa
     jagsparallel <- function(i, ...)   {
         cldata <- pullDcloneEnv("cldata", type = "model")
         jags.fit(data=cldata$data, params=cldata$params, 

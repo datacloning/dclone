@@ -115,7 +115,7 @@ are not affected. Best to start new instances beforehand.
 
 \code{partype="balancing"} distributes each model corresponding
 to values in \code{n.clones} as jobs to workers according to size 
-balancing (see \code{\link{snowWrapper}}). \code{partype="parchains"} 
+balancing (see \code{\link{parDosa}}). \code{partype="parchains"}
 makes repeated calls
 to \code{\link{jags.parfit}} for each value in \code{n.clones}.
 \code{partype="both"} also calls \code{\link{jags.parfit}} but

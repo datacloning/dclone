@@ -14,7 +14,7 @@ parJagsModel(cl, name, file, data=sys.frame(sys.parent()),
   \item{cl}{
     A cluster object created by \code{\link[snow]{makeCluster}}, or
     an integer. It can also be \code{NULL}, 
-    see \code{\link{snowWrapper}}.
+    see \code{\link{parDosa}}.
     Size of the cluster must be equal to or larger than \code{n.chains}.
   }
 \item{name}{

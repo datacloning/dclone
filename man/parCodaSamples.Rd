@@ -15,7 +15,7 @@ parCodaSamples(cl, model, variable.names, n.iter, thin = 1, ...)
   \item{cl}{
     A cluster object created by \code{\link[snow]{makeCluster}}, or
     an integer. It can also be \code{NULL}, see 
-    \code{\link{snowWrapper}}.
+    \code{\link{parDosa}}.
   }
   \item{model}{character, name of a jags model object}
   \item{variable.names}{a character vector giving the names of variables

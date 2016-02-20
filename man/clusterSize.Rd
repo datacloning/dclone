@@ -53,7 +53,7 @@ The number of workers needed depends on the
 type of balancing.
 
 For the description of the balancing types, see 
-\code{\link{snowWrapper}}.
+\code{\link{parDosa}}.
 }
 \value{
 \code{clusterSize} returns a data frame with approximate 

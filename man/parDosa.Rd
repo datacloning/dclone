@@ -10,9 +10,6 @@ Parallel wrapper function to call from within a function
 functionalities of the \pkg{parallel} and \pkg{snow} packages.
 It is designed to work closely with MCMC fitting functions, 
 e.g. can easily be called from inside of a function.
-
-This function is replacing the \code{\link{snowWrapper}}
-function which is temporarily retained for compatibility.
 }
 \usage{
 parDosa(cl, seq, fun, cldata,

@@ -17,7 +17,6 @@ export("jagsModel", "codaSamples")
 
 ## exporting parallel functions
 export("jags.parfit", "dc.parfit", "bugs.parfit",
-       "snowWrapper",
        "parDosa",
        "clusterSize", "plotClusterSize",
        "clusterSplitSB",
