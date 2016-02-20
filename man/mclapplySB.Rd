@@ -47,7 +47,7 @@ is used to balance workload on the child processes
 otherwise.
 }
 \seealso{
-  \code{\link[parallel]{mclapply}}, \code{\link{snowWrapper}}
+  \code{\link[parallel]{mclapply}}, \code{\link{parDosa}}
 }
 \author{Peter Solymos}
 \keyword{interface}
