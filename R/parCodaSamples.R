@@ -10,7 +10,7 @@ thin = 1, na.rm=TRUE, ...)
     if (!is.character(model))
         model <- as.character(model) # deparse(substitute(model))
     cldata <- list(variable.names=variable.names,
-        n.iter=n.iter, thin=thin, name=model, na.rm=na.rm=)
+        n.iter=n.iter, thin=thin, name=model, na.rm=na.rm)
     jagsparallel <- function(i, ...) {
         cldata <- pullDcloneEnv("cldata", type = "model")
         if (!existsDcloneEnv(cldata$name, type = "results"))
