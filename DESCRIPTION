@@ -10,14 +10,14 @@ Description: Low level functions for implementing
     complex models using data cloning and Bayesian
     Markov chain Monte Carlo methods.
     Sequential and parallel MCMC support
-    for JAGS, WinBUGS and OpenBUGS.
+    for JAGS, WinBUGS, OpenBUGS, and Stan.
 License: GPL-2
 Depends: R (>= 2.15.1), coda (>= 0.13), parallel, Matrix
 Suggests: MASS, lattice, R2WinBUGS,
     R2OpenBUGS, BRugs, rlecuyer
-Imports: methods, stats, rjags (>= 4-4), snow
+Imports: methods, stats, rjags (>= 4-4), snow, rstan
 SystemRequirements: none, one or more of JAGS (>= 3.0.0),
-    WinBUGS (>= 1.4), OpenBUGS (>= 3.2.2)
+    WinBUGS (>= 1.4), OpenBUGS (>= 3.2.2), Stan
 URL: https://groups.google.com/forum/#!forum/dclone-users,
     http://datacloning.org
 BugReports: https://github.com/datacloning/dclone/issues

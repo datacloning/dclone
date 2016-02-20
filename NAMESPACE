@@ -135,3 +135,8 @@ S3method("print", "custommodel")
 
 ## methods for helper functions/classes
 S3method("errlines", "default")
+
+## exporting Stan related functions
+export("stan.fit", "stan.parfit", "stan.model")
+S3method("stan.model", "mcmc.list")
+S3method("stan.model", "mcmc.list.dc")
