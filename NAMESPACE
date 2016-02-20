@@ -140,3 +140,6 @@ S3method("errlines", "default")
 export("stan.fit", "stan.parfit", "stan.model")
 S3method("stan.model", "mcmc.list")
 S3method("stan.model", "mcmc.list.dc")
+importFrom("rstan",
+  "stan", "get_stanmodel", "sampling", "sflist2stanlist")
+
