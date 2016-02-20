@@ -3,6 +3,9 @@
 ## Version 2.1-2, Jan 14, 2016
 
     * snowWrapper deprecated.
+    * codaSamples and parCodaSamples gained na.rm argument
+      following rjags::coda.samples (starting with rjags 4-4,
+      thus the version dependency in DESCRIPTION).
 
 ## Version 2.1-1, Jan 11, 2016
 
