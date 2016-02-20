@@ -1,5 +1,6 @@
 parCodaSamples <-
-function(cl, model, variable.names = NULL, n.iter, thin = 1, ...) 
+function(cl, model, variable.names = NULL, n.iter,
+thin = 1, na.rm=TRUE, ...)
 {
     ## stop if rjags not found
     requireNamespace("rjags")
@@ -9,7 +10,7 @@ function(cl, model, variable.names = NULL, n.iter, thin = 1, ...)
     if (!is.character(model))
         model <- as.character(model) # deparse(substitute(model))
     cldata <- list(variable.names=variable.names,
-        n.iter=n.iter, thin=thin, name=model)
+        n.iter=n.iter, thin=thin, name=model, na.rm=na.rm=)
     jagsparallel <- function(i, ...) {
         cldata <- pullDcloneEnv("cldata", type = "model")
         if (!existsDcloneEnv(cldata$name, type = "results"))
@@ -17,7 +18,7 @@ function(cl, model, variable.names = NULL, n.iter, thin = 1, ...)
         res <- pullDcloneEnv(cldata$name, type = "results")
         n.clones <- nclones(res)
         out <- rjags::coda.samples(res, variable.names=cldata$variable.names,
-            n.iter=cldata$n.iter, thin=cldata$thin, ...)
+            n.iter=cldata$n.iter, thin=cldata$thin, na.rm=cldata$na.rm, ...)
         ## jags model is pushed back to .env, mcmc.list is returned
         pushDcloneEnv(cldata$name, res, type = "results")
         if (!is.null(n.clones) && n.clones > 1) {
@@ -25,11 +26,11 @@ function(cl, model, variable.names = NULL, n.iter, thin = 1, ...)
         }
         out
     }
-    dir <- if (inherits(cl, "SOCKcluster")) 
+    dir <- if (inherits(cl, "SOCKcluster"))
         getwd() else NULL
-    res <- parDosa(cl, 1:length(cl), jagsparallel, cldata, 
-        lib = c("dclone", "rjags"), balancing = "none", size = 1, 
-        rng.type = getOption("dcoptions")$RNG, 
+    res <- parDosa(cl, 1:length(cl), jagsparallel, cldata,
+        lib = c("dclone", "rjags"), balancing = "none", size = 1,
+        rng.type = getOption("dcoptions")$RNG,
         cleanup = TRUE, dir = dir, unload=FALSE, ...)
     res <- res[!sapply(res, is.null)]
     n.clones <- lapply(res, nclones)

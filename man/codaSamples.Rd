@@ -9,7 +9,7 @@
   of data cloning information supplied via the \code{model} argument.
 }
 \usage{
-codaSamples(model, variable.names, n.iter, thin = 1, ...)
+codaSamples(model, variable.names, n.iter, thin = 1, na.rm = TRUE, ...)
 }
 \arguments{
   \item{model}{a jags model object}
@@ -17,18 +17,21 @@ codaSamples(model, variable.names, n.iter, thin = 1, ...)
     to be monitored}
   \item{n.iter}{number of iterations to monitor}
   \item{thin}{thinning interval for monitors}
+  \item{na.rm}{logical flag that indicates whether variables containing
+    missing values should be omitted. See details in help page
+    of \code{\link[rjags]{coda.samples}}.}
   \item{...}{optional arguments that are passed to the update method
-             for jags model objects}
+    for jags model objects}
 }
 \value{
-  An \code{mcmc.list} object. An \code{n.clones} attribute is attached 
-  to the object, but unlike in \code{\link{jags.fit}} there is no 
-  \code{\link{updated.model}} attribute as it is equivalent to the 
+  An \code{mcmc.list} object. An \code{n.clones} attribute is attached
+  to the object, but unlike in \code{\link{jags.fit}} there is no
+  \code{\link{updated.model}} attribute as it is equivalent to the
   input jags model object.
 }
 \author{Peter Solymos, \email{solymos@ualberta.ca}}
-\seealso{\code{\link[rjags]{coda.samples}}, 
-\code{\link[rjags]{update.jags}}, 
+\seealso{\code{\link[rjags]{coda.samples}},
+\code{\link[rjags]{update.jags}},
 \code{\link[rjags]{jags.model}}
 
 Parallel version: \code{\link{parCodaSamples}}}

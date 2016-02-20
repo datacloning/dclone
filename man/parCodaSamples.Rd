@@ -1,6 +1,6 @@
 \name{parCodaSamples}
 \alias{parCodaSamples}
-\title{Generate posterior samples in 'mcmc.list' 
+\title{Generate posterior samples in 'mcmc.list'
 format on parallel workers}
 \description{
   This function sets a trace
@@ -9,12 +9,12 @@ format on parallel workers}
   output to a single \code{mcmc.list} object.
 }
 \usage{
-parCodaSamples(cl, model, variable.names, n.iter, thin = 1, ...)
+parCodaSamples(cl, model, variable.names, n.iter, thin = 1, na.rm = TRUE, ...)
 }
 \arguments{
   \item{cl}{
     A cluster object created by \code{\link[snow]{makeCluster}}, or
-    an integer. It can also be \code{NULL}, see 
+    an integer. It can also be \code{NULL}, see
     \code{\link{parDosa}}.
   }
   \item{model}{character, name of a jags model object}
@@ -22,6 +22,9 @@ parCodaSamples(cl, model, variable.names, n.iter, thin = 1, ...)
     to be monitored}
   \item{n.iter}{number of iterations to monitor}
   \item{thin}{thinning interval for monitors}
+  \item{na.rm}{logical flag that indicates whether variables containing
+    missing values should be omitted. See details in help page
+    of \code{\link[rjags]{coda.samples}}.}
   \item{...}{optional arguments that are passed to the update method
              for jags model objects}
 }
@@ -30,7 +33,7 @@ parCodaSamples(cl, model, variable.names, n.iter, thin = 1, ...)
 }
 \author{Peter Solymos, \email{solymos@ualberta.ca}}
 \seealso{
-Original sequential function in \pkg{rjags}: 
+Original sequential function in \pkg{rjags}:
 \code{\link[rjags]{coda.samples}}
 
 Sequential \pkg{dclone}-ified version: \code{\link{codaSamples}}
@@ -63,14 +66,14 @@ jpara <- c("alpha", "beta", "sigma")
 ## jags model on parallel workers
 ## n.chains must be <= no. of workers
 cl <- makePSOCKcluster(4)
-parJagsModel(cl, name="res", file=model, data=jdata, 
+parJagsModel(cl, name="res", file=model, data=jdata,
     n.chains = 2, n.adapt=1000)
 parUpdate(cl, "res", n.iter=1000)
 m <- parCodaSamples(cl, "res", jpara, n.iter=2000)
 stopifnot(2==nchain(m))
 ## with data cloning
 dcdata <- dclone(list(N = N, Y = Y, x = x), 2, multiply="N")
-parJagsModel(cl, name="res2", file=model, data=dcdata, 
+parJagsModel(cl, name="res2", file=model, data=dcdata,
     n.chains = 2, n.adapt=1000)
 parUpdate(cl, "res2", n.iter=1000)
 m2 <- parCodaSamples(cl, "res2", jpara, n.iter=2000)
