@@ -31,7 +31,7 @@ function(cl, data, params, model, inits = NULL,
         inits <- if (is.null(formals(inits))) {
             lapply(chain_id, function(i) inits())
         } else {
-            lapply(chani_id, inits)
+            lapply(chain_id, inits)
         }
     }
     ## this is to repeat if 0 "0" "random" or list()
