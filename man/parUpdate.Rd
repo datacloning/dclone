@@ -2,7 +2,8 @@
 \alias{parUpdate}
 \title{Update jags models on parallel workers}
 \description{
-  Update the Markov chain associated with the model on parallel workers. 
+  Update the Markov chain associated with the model on parallel workers.
+  (This represents the 'burn-in' phase when nodes are not monitored.) 
 }
 \usage{
 parUpdate(cl, object, n.iter=1, \ldots)
@@ -10,7 +11,7 @@ parUpdate(cl, object, n.iter=1, \ldots)
 \arguments{
   \item{cl}{
     A cluster object created by \code{\link[snow]{makeCluster}}, or
-    an integer. It can also be \code{NULL}, 
+    an integer. It can also be \code{NULL},
     see \code{\link{parDosa}}.
   }
   \item{object}{character, name of a jags model object}
