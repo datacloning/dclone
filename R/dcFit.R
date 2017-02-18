@@ -82,41 +82,39 @@ n.chains=3, cl = NULL, parchains = FALSE, return.all=FALSE, ...)
                     n.chains=n.chains, format="mcmc.list", ...)
             }
         }
-        if (return.all) {
+        if (return.all)
             out.all[[i]] <- mod
-        } else {
-            ## dctable evaluation
-            if (i == 1) {
-                vn <- varnames(mod)
-                dcts <- list()
-                ## note: quantiles must remain unchanged, because these values are
-                ## defined in extractdctable.default
-                quantiles <- c(0.025, 0.25, 0.5, 0.75, 0.975)
-                dcts0 <- matrix(0, times, 4 + length(quantiles))
-                dcts0[,1] <- k
-                colnames(dcts0) <- c("n.clones", "mean", "sd", names(quantile(0, probs=quantiles)), "r.hat")
-                for (j in 1:length(vn))
-                    dcts[[vn[j]]] <- dcts0
-            }
-            ## updating
-            if (i < times) {
-                if (!is.null(update))
-                    jdat[[update]] <- if (UPARGS)
-                        updatefun(mod) else updatefun(mod, k[i+1])
-                if (!is.null(initsfun))
-                    inits <- if (INIARGS)
-                        initsfun(mod) else initsfun(mod, k[i+1])
-            }
-            dctmp <- dclone::extractdctable.default(mod)
-            ## params.diag needs to subset varnames and not params
-            if (i == 1) {
-                vn <- varnames(mod)
-                params.diag <- vn[unlist(lapply(params.diag, grep, x=vn))]
-            }
-            dcdr[[i]] <- dclone::extractdcdiag.default(mod[,params.diag])
-            for (j in 1:length(vn)) {
-                dcts[[j]][i,-1] <- dctmp[j,]
-            }
+        ## dctable evaluation
+        if (i == 1) {
+            vn <- varnames(mod)
+            dcts <- list()
+            ## note: quantiles must remain unchanged, because these values are
+            ## defined in extractdctable.default
+            quantiles <- c(0.025, 0.25, 0.5, 0.75, 0.975)
+            dcts0 <- matrix(0, times, 4 + length(quantiles))
+            dcts0[,1] <- k
+            colnames(dcts0) <- c("n.clones", "mean", "sd", names(quantile(0, probs=quantiles)), "r.hat")
+            for (j in 1:length(vn))
+                dcts[[vn[j]]] <- dcts0
+        }
+        ## updating
+        if (i < times) {
+            if (!is.null(update))
+                jdat[[update]] <- if (UPARGS)
+                    updatefun(mod) else updatefun(mod, k[i+1])
+            if (!is.null(initsfun))
+                inits <- if (INIARGS)
+                    initsfun(mod) else initsfun(mod, k[i+1])
+        }
+        dctmp <- dclone::extractdctable.default(mod)
+        ## params.diag needs to subset varnames and not params
+        if (i == 1) {
+            vn <- varnames(mod)
+            params.diag <- vn[unlist(lapply(params.diag, grep, x=vn))]
+        }
+        dcdr[[i]] <- dclone::extractdcdiag.default(mod[,params.diag])
+        for (j in 1:length(vn)) {
+            dcts[[j]][i,-1] <- dctmp[j,]
         }
     }
     ## return list if return.all=TRUE, proceed otherwise
