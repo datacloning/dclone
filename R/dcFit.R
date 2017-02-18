@@ -1,14 +1,14 @@
-.dcFit <- 
-function(data, params, model, inits, n.clones, multiply = NULL, unchanged = NULL, 
-update = NULL, updatefun = NULL, initsfun = NULL, flavour = c("jags", "bugs"), 
+.dcFit <-
+function(data, params, model, inits, n.clones, multiply = NULL, unchanged = NULL,
+update = NULL, updatefun = NULL, initsfun = NULL, flavour = c("jags", "bugs"),
 n.chains=3, cl = NULL, parchains = FALSE, ...)
 {
     flavour <- match.arg(flavour)
     ## initail evals
     if (missing(n.clones))
         stop("'n.clones' argument must be provided")
-    if (identical(n.clones, 1))
-        stop("'n.clones = 1' gives the Bayesian answer, no need for DC")
+#    if (identical(n.clones, 1))
+#        stop("'n.clones = 1' gives the Bayesian answer, no need for DC")
     if (is.environment(data)) {
         warnings("'data' was environment: it was coerced into a list")
         data <- as.list(data)
@@ -71,10 +71,10 @@ n.chains=3, cl = NULL, parchains = FALSE, ...)
             }
         } else {
             if (parchains) {
-                mod <- bugs.parfit(cl, jdat, params, model, inits, 
+                mod <- bugs.parfit(cl, jdat, params, model, inits,
                     n.chains=n.chains, format="mcmc.list", ...)
             } else {
-                mod <- bugs.fit(jdat, params, model, inits, 
+                mod <- bugs.fit(jdat, params, model, inits,
                     n.chains=n.chains, format="mcmc.list", ...)
             }
         }
@@ -94,7 +94,7 @@ n.chains=3, cl = NULL, parchains = FALSE, ...)
         ## updating
         if (i < times) {
             if (!is.null(update))
-                jdat[[update]] <- if (UPARGS) 
+                jdat[[update]] <- if (UPARGS)
                     updatefun(mod) else updatefun(mod, k[i+1])
             if (!is.null(initsfun))
                 inits <- if (INIARGS)
