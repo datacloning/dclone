@@ -3,7 +3,6 @@
 [![CRAN version](http://www.r-pkg.org/badges/version/dclone)](http://cran.rstudio.com/web/packages/dclone/index.html)
 [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/grand-total/dclone)](http://www.rdocumentation.org/packages/dclone)
 [![Linux build status](https://travis-ci.org/datacloning/dclone.svg?branch=master)](https://travis-ci.org/datacloning/dclone)
-[![Windows build status](https://ci.appveyor.com/api/projects/status/8jnnkwvnol27j7p2?svg=true)](https://ci.appveyor.com/project/psolymos/dclone)
 
 Low level functions for implementing
 maximum likelihood estimating procedures for
