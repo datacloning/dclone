@@ -3,6 +3,9 @@
 ## Version 2.1-3, Feb 17, 2017
 
 * dc.fit: n.clones=1 is acceptable and will not throw error.
+* dc.fit and dc.parfit gained return.all argument so that
+  not only the mcmc.list corresponding to highes number of
+  clones is returned.
 
 ## Version 2.1-2, Jan 14, 2016
 

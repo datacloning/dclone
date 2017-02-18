@@ -1,7 +1,7 @@
 .dcFit <-
 function(data, params, model, inits, n.clones, multiply = NULL, unchanged = NULL,
 update = NULL, updatefun = NULL, initsfun = NULL, flavour = c("jags", "bugs"),
-n.chains=3, cl = NULL, parchains = FALSE, ...)
+n.chains=3, cl = NULL, parchains = FALSE, return.all=FALSE, ...)
 {
     flavour <- match.arg(flavour)
     ## initail evals
@@ -49,7 +49,11 @@ n.chains=3, cl = NULL, parchains = FALSE, ...)
     ## list for dcdiag results
     dcdr <- list()
     ## iteration starts here
-    for (i in 1:times) {
+    if (return.all) {
+        out.all <- vector("list", times)
+        names(out.all) <- paste0("nclones=", k)
+    }
+    for (i in seq_len(times)) {
         tmpch <- if (k[i] == 1) "clone" else "clones"
         if (trace) {
             cat("\nFitting model with", k[i], tmpch, "\n\n")
@@ -78,39 +82,46 @@ n.chains=3, cl = NULL, parchains = FALSE, ...)
                     n.chains=n.chains, format="mcmc.list", ...)
             }
         }
-        ## dctable evaluation
-        if (i == 1) {
-            vn <- varnames(mod)
-            dcts <- list()
-            ## note: quantiles must remain unchanged, because these values are
-            ## defined in extractdctable.default
-            quantiles <- c(0.025, 0.25, 0.5, 0.75, 0.975)
-            dcts0 <- matrix(0, times, 4 + length(quantiles))
-            dcts0[,1] <- k
-            colnames(dcts0) <- c("n.clones", "mean", "sd", names(quantile(0, probs=quantiles)), "r.hat")
-            for (j in 1:length(vn))
-                dcts[[vn[j]]] <- dcts0
-        }
-        ## updating
-        if (i < times) {
-            if (!is.null(update))
-                jdat[[update]] <- if (UPARGS)
-                    updatefun(mod) else updatefun(mod, k[i+1])
-            if (!is.null(initsfun))
-                inits <- if (INIARGS)
-                    initsfun(mod) else initsfun(mod, k[i+1])
-        }
-        dctmp <- dclone::extractdctable.default(mod)
-        ## params.diag needs to subset varnames and not params
-        if (i == 1) {
-            vn <- varnames(mod)
-            params.diag <- vn[unlist(lapply(params.diag, grep, x=vn))]
-        }
-        dcdr[[i]] <- dclone::extractdcdiag.default(mod[,params.diag])
-        for (j in 1:length(vn)) {
-            dcts[[j]][i,-1] <- dctmp[j,]
+        if (return.all) {
+            out.all[[i]] <- mod
+        } else {
+            ## dctable evaluation
+            if (i == 1) {
+                vn <- varnames(mod)
+                dcts <- list()
+                ## note: quantiles must remain unchanged, because these values are
+                ## defined in extractdctable.default
+                quantiles <- c(0.025, 0.25, 0.5, 0.75, 0.975)
+                dcts0 <- matrix(0, times, 4 + length(quantiles))
+                dcts0[,1] <- k
+                colnames(dcts0) <- c("n.clones", "mean", "sd", names(quantile(0, probs=quantiles)), "r.hat")
+                for (j in 1:length(vn))
+                    dcts[[vn[j]]] <- dcts0
+            }
+            ## updating
+            if (i < times) {
+                if (!is.null(update))
+                    jdat[[update]] <- if (UPARGS)
+                        updatefun(mod) else updatefun(mod, k[i+1])
+                if (!is.null(initsfun))
+                    inits <- if (INIARGS)
+                        initsfun(mod) else initsfun(mod, k[i+1])
+            }
+            dctmp <- dclone::extractdctable.default(mod)
+            ## params.diag needs to subset varnames and not params
+            if (i == 1) {
+                vn <- varnames(mod)
+                params.diag <- vn[unlist(lapply(params.diag, grep, x=vn))]
+            }
+            dcdr[[i]] <- dclone::extractdcdiag.default(mod[,params.diag])
+            for (j in 1:length(vn)) {
+                dcts[[j]][i,-1] <- dctmp[j,]
+            }
         }
     }
+    ## return list if return.all=TRUE, proceed otherwise
+    if (return.all)
+        return(out.all)
     ## warning if R.hat < crit
     rhat.problem <- any(dctmp[,"r.hat"] >= rhat.crit)
     if (any(is.na(rhat.problem))) {

@@ -1,7 +1,8 @@
 dc.parfit <-
-function(cl, data, params, model, inits, n.clones, multiply = NULL, unchanged = NULL,
-update = NULL, updatefun = NULL, initsfun = NULL, flavour = c("jags", "bugs"),
-n.chains = 3, partype = c("balancing", "parchains", "both"), ...)
+function(cl, data, params, model, inits, n.clones, multiply = NULL,
+unchanged = NULL, update = NULL, updatefun = NULL, initsfun = NULL,
+flavour = c("jags", "bugs"), n.chains = 3,
+partype = c("balancing", "parchains", "both"), return.all=FALSE, ...)
 {
     ## get defaults right for cl argument
     cl <- evalParallelArgument(cl, quit=TRUE)
@@ -11,7 +12,7 @@ n.chains = 3, partype = c("balancing", "parchains", "both"), ...)
             multiply = multiply, unchanged = unchanged,
             update = update, updatefun = updatefun,
             initsfun = initsfun, flavour = flavour,
-            n.chains = n.chains, ...))
+            n.chains = n.chains, return.all=return.all, ...))
     }
     ## parallel evaluation starts here
     flavour <- match.arg(flavour)
@@ -45,9 +46,11 @@ n.chains = 3, partype = c("balancing", "parchains", "both"), ...)
             multiply=multiply, unchanged=unchanged,
             update=update, updatefun=updatefun,
             initsfun=initsfun, flavour = flavour,
-            cl=cl, parchains=TRUE, n.chains=n.chains, ...)
+            cl=cl, parchains=TRUE, n.chains=n.chains, return.all=return.all, ...)
     ## size balancing and balancing+parchains
     } else {
+        if (return.all)
+            stop("return.all=TRUE works only with 'parchains'")
         if (missing(n.clones))
             stop("'n.clones' argument must be provided")
 #        if (identical(n.clones, 1))
