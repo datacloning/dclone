@@ -79,7 +79,8 @@ program=c("winbugs", "openbugs", "brugs"), ...) ## only mcmc.list format is supp
             model=cldata$model,
             inits=cldata$inits[[i]], n.chains=1,
             seed=cldata$seed[i],
-            program=cldata$program, format="mcmc.list", ...)
+            program=cldata$program, format="mcmc.list",
+            working.directory=NULL, ...)
     }
     if (trace) {
         cat("\nParallel computation in progress\n\n")
