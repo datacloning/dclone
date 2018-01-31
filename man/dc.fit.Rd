@@ -114,7 +114,7 @@ mixed models using data cloning.
 
 Solymos, P., 2010. dclone: Data Cloning in R.
 \emph{The R Journal} \strong{2(2)}, 29--37.
-URL: \url{http://journal.r-project.org/archive/2010-2/RJournal_2010-2_Solymos.pdf}
+URL: \url{https://journal.r-project.org/archive/2010-2/RJournal_2010-2_Solymos.pdf}
 }
 \author{
 Peter Solymos, \email{solymos@ualberta.ca},
