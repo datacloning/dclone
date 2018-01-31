@@ -1,6 +1,6 @@
 # dclone package version history
 
-## Version 2.1-3, Feb 17, 2017
+## Version 2.1-3, Jan 30, 2018
 
 * dc.fit: n.clones=1 is acceptable and will not throw error.
 * dc.fit and dc.parfit gained return.all argument so that
