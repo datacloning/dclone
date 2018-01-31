@@ -7,7 +7,7 @@ Parallel computing with WinBUGS/OpenBUGS
 }
 \description{
 Does the same job as \code{\link[dclone]{bugs.fit}},
-but parallel chanis are run on parallel workers, thus
+but parallel chains are run on parallel workers, thus
 computations can be faster (up to 1/\code{n.chains}) for long MCMC runs.
 }
 \usage{
@@ -80,7 +80,7 @@ Each predefined state is 10^12 draws apart to avoid overlap in
 pseudo random number sequences.
 
 Note: the default setting \code{working.directory = NULL} cannot be changed
-when running parallel chanis with \code{bugs.parfit} because
+when running parallel chains with \code{bugs.parfit} because
 the multiple instances would try to read/write the same directory.
 }
 \value{

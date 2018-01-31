@@ -82,7 +82,7 @@ Number of chains to generate.
   \item{return.all}{
 Logical. If \code{TRUE}, all the MCMC list objects corresponding to the sequence
 \code{n.clones} are returned for further inspection. Otherwise only
-the MCMC list corresponding to highes number of clones is returned
+the MCMC list corresponding to highest number of clones is returned
 with summary statistics for the rest.
 }
   \item{\dots}{

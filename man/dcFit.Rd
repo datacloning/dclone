@@ -85,13 +85,13 @@ an integer, see \code{\link{parDosa}} and
 \code{\link{evalParallelArgument}}.
 }
   \item{parchains}{
-  Logical, whether parallel chanins should be run.
+  Logical, whether parallel chains should be run.
 }
   \item{return.all}{
 Logical. If \code{TRUE}, all the MCMC list objects corresponding to the sequence
 \code{n.clones} are returned for further inspection
 (this only works with \code{partype = "parchains"}). Otherwise only
-the MCMC list corresponding to highes number of clones is returned
+the MCMC list corresponding to highest number of clones is returned
 with summary statistics for the rest.
 }
   \item{\dots}{
