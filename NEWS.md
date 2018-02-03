@@ -154,7 +154,7 @@
 
 ## Version 1.5-1, October 18, 2011
 
-* "[.mcmc.list.dc" addted to extract parts of a fitted object
+* "[.mcmc.list.dc" added to extract parts of a fitted object
   and retain its n.clones attribute (no other attributes
   though, e.g. dcdiag, dctable, updated.model).
 * params argument in dc.*fit can take a 2 element
@@ -190,7 +190,7 @@
 * plot.dcdiag: dcdiag colnames from .dcFit were non standard,
   so plot failed to select columns. Now fixed.
 * dc.fit and dc.parfit: got n.chains argument for clean
-  handling in parrallel work. (dc.parfit failed with
+  handling in parallel work. (dc.parfit failed with
   partype="both" when n.chains was other than 3.)
 * plotClusterSize: can plot if length(size) < n
   without error/warnings.
@@ -242,7 +242,7 @@
   not user visible and undocumented.
 * dclone is loaded to workers by snowWrapper
   only if .packages() does not contain it yet.
-* dclone method for environmet added: it returns a cloned list.
+* dclone method for environment added: it returns a cloned list.
 * data argument can be environment,
   it is coerced to a list for handling n.clones attribute.
 * jags.fit: quiet argument of jags.model used along with
@@ -250,7 +250,7 @@
   during compilation.
 * Parallel functionality added replicating main rjags functions
   to allow easy updating of jags model objects.
-  FUnctions added: parListModules, parLoadModule, parUnloadModule,
+  Functions added: parListModules, parLoadModule, parUnloadModule,
   parListFactories, parSetFactory, parJagsModel, parUpdate,
   parCodaSamples, parUpdate; with help pages taken and edited from
   rjags package of M Plummer.
@@ -261,7 +261,7 @@
   packaged from pkg argument.
 * snowWrapper: if name=NULL, .DcloneEnv is used to store
   temporary data.
-* Data cloning compatibile jagsModel and codaSamples
+* Data cloning compatible jagsModel and codaSamples
   function added for sequential computations.
   Both functions copied after rjags equivalents,
   jags.model and coda.samples.
@@ -341,7 +341,7 @@
 
 * experimenting with bugs.parfit:
   the different seeds approach is not satisfactory
-  because it cannot garantee independence of the chains
+  because it cannot guarantee independence of the chains
 * seed arg added to bugs.fit
 * RNG option added to work with snowWrapper
 * set.rng arg added to snowWrapper that calls
