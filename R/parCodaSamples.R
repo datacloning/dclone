@@ -26,12 +26,14 @@ thin = 1, na.rm=TRUE, ...)
         }
         out
     }
-    dir <- if (inherits(cl, "SOCKcluster"))
-        getwd() else NULL
+#    dir <- if (inherits(cl, "SOCKcluster")) # model now has full path
+#        getwd() else NULL
     res <- parDosa(cl, 1:length(cl), jagsparallel, cldata,
         lib = c("dclone", "rjags"), balancing = "none", size = 1,
         rng.type = getOption("dcoptions")$RNG,
-        cleanup = TRUE, dir = dir, unload=FALSE, ...)
+        cleanup = TRUE,
+        dir = NULL, # model now has full path
+        unload=FALSE, ...)
     res <- res[!sapply(res, is.null)]
     n.clones <- lapply(res, nclones)
     if (length(unique(unlist(n.clones))) != 1L) {
