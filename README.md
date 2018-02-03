@@ -12,7 +12,8 @@ as described in Solymos 2010 ([R Journal 2(2):29--37](http://journal.r-project.o
 Sequential and parallel MCMC support
 for JAGS, WinBUGS and OpenBUGS.
 
-Find more resources at [datacloning.org](http://datacloning.org).
+Find help on the [Dclone users mailing list](https://groups.google.com/forum/#!forum/dclone-users).
+More resources at [datacloning.org](http://datacloning.org).
 
 ## Versions
 
@@ -38,4 +39,4 @@ to report a problem.
 
 ## References
 
-Solymos, P., 2010. dclone: Data Cloning in R. R Journal 2(2):29--37. [[PDF](http://journal.r-project.org/archive/2010-2/RJournal_2010-2_Solymos.pdf)]
+Solymos, P., 2010. dclone: Data Cloning in R. R Journal 2(2):29--37. [[PDF](https://journal.r-project.org/archive/2010-2/RJournal_2010-2_Solymos.pdf)]

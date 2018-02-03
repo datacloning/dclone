@@ -1,12 +1,9 @@
 write.jags.model <-
-function(model, filename = "model.txt", 
-digits = 5, dir = getwd(), 
+function(model, filename = "model.txt",
+digits = 5, dir = tempdir(),
 overwrite = getOption("dcoptions")$overwrite)
 {
     ext <- "txt"
-    old.dir <- getwd()
-    setwd(dir)
-    on.exit(setwd(old.dir))
     if (!inherits(filename, "connection") && !overwrite && file.exists(filename)) {
         sn <- unlist(strsplit(filename, "\\."))
         if (length(sn) > 2) {
@@ -24,6 +21,11 @@ overwrite = getOption("dcoptions")$overwrite)
     } else {
         filename2 <- filename
     }
+
+    path <- if (is.null(dir))
+        getwd() else as.character(dir)
+    filename2 <- file.path(path, filename2)
+
     if (inherits(model, "custommodel")) {
         writeLines(model, filename2)
     } else {

@@ -1,5 +1,5 @@
 parUpdate <-
-function(cl, object, n.iter = 1, ...) 
+function(cl, object, n.iter = 1, ...)
 {
     ## stop if rjags not found
     requireNamespace("rjags")
@@ -22,10 +22,12 @@ function(cl, object, n.iter = 1, ...)
         }
         NULL
     }
-    dir <- if (inherits(cl, "SOCKcluster"))
-        getwd() else NULL
+#    dir <- if (inherits(cl, "SOCKcluster")) # model now has full path
+#        getwd() else NULL
     parDosa(cl, 1:length(cl), jagsparallel, cldata,
-        lib = c("dclone", "rjags"), balancing = "none", size = 1, 
-        rng.type = getOption("dcoptions")$RNG, 
-        cleanup = TRUE, dir = dir, unload = FALSE, ...)
+        lib = c("dclone", "rjags"), balancing = "none", size = 1,
+        rng.type = getOption("dcoptions")$RNG,
+        cleanup = TRUE,
+        dir = NULL, # model now has full path
+        unload = FALSE, ...)
 }

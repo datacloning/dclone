@@ -5,7 +5,7 @@ function(cl, data, params, model, inits = NULL, n.chains = 3, ...)
     cl <- evalParallelArgument(cl, quit=TRUE)
     ## sequential evaluation falls back on jags.fit
     if (is.null(cl)) {
-        return(jags.fit(data, params, model, 
+        return(jags.fit(data, params, model,
             inits = inits, n.chains = n.chains, ...))
     }
     ## parallel evaluation starts here
@@ -52,8 +52,8 @@ function(cl, data, params, model, inits = NULL, n.chains = 3, ...)
     ## parallel function to evaluate by parDosa
     jagsparallel <- function(i, ...)   {
         cldata <- pullDcloneEnv("cldata", type = "model")
-        jags.fit(data=cldata$data, params=cldata$params, 
-            model=cldata$model, 
+        jags.fit(data=cldata$data, params=cldata$params,
+            model=cldata$model,
             inits=cldata$inits[[i]], n.chains=1, updated.model=FALSE, ...)
     }
     if (trace) {
@@ -63,11 +63,12 @@ function(cl, data, params, model, inits = NULL, n.chains = 3, ...)
     ## parallel computations
     balancing <- if (getOption("dcoptions")$LB)
         "load" else "none"
-    dir <- if (inherits(cl, "SOCKcluster"))
-        getwd() else NULL
-    mcmc <- parDosa(cl, 1:n.chains, jagsparallel, cldata, 
-        lib=c("dclone","rjags"), balancing=balancing, size=1, 
-        rng.type=getOption("dcoptions")$RNG, cleanup=TRUE, dir=dir, 
+#    dir <- if (inherits(cl, "SOCKcluster")) # model now has full path
+#        getwd() else NULL
+    mcmc <- parDosa(cl, 1:n.chains, jagsparallel, cldata,
+        lib=c("dclone","rjags"), balancing=balancing, size=1,
+        rng.type=getOption("dcoptions")$RNG, cleanup=TRUE,
+        dir=NULL, # model now has full path
         unload=FALSE, ...)
     ## binding the chains
     res <- as.mcmc.list(lapply(mcmc, as.mcmc))
