@@ -1,11 +1,15 @@
 # dclone package version history
 
-## Version 2.1-3, Jan 30, 2018
+## Version 2.1-3, Feb 2, 2018
 
 * dc.fit: n.clones=1 is acceptable and will not throw error.
 * dc.fit and dc.parfit gained return.all argument so that
   not only the mcmc.list corresponding to highes number of
   clones is returned.
+* write.jags.model does not write into the user's working directory
+  but uses tempdir() as per CRAN requirements. The function
+  returns the full path for cleanup. Tested to work with
+  sequential and parallel functions.
 
 ## Version 2.1-2, Jan 14, 2016
 
