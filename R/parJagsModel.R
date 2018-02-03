@@ -1,6 +1,6 @@
 parJagsModel <-
-function(cl, name, file, data = sys.frame(sys.parent()), 
-inits, n.chains = 1, n.adapt = 1000, quiet = FALSE) 
+function(cl, name, file, data = sys.frame(sys.parent()),
+inits, n.chains = 1, n.adapt = 1000, quiet = FALSE)
 {
     ## stop if rjags not found
     requireNamespace("rjags")
@@ -29,7 +29,7 @@ inits, n.chains = 1, n.adapt = 1000, quiet = FALSE)
     }
     inits <- if (missing(inits))
         parallel.inits(n.chains=n.chains) else parallel.inits(inits, n.chains)
-#    inits <- jags.model(file, data, inits, n.chains, 
+#    inits <- jags.model(file, data, inits, n.chains,
 #        n.adapt = 0)$state(internal = TRUE)
     if (!is.character(name))
         name <- as.character(name) # deparse(substitute(name))
@@ -39,7 +39,7 @@ inits, n.chains = 1, n.adapt = 1000, quiet = FALSE)
         n.clones=n.clones)
     jagsparallel <- function(i) {
         cldata <- pullDcloneEnv("cldata", type = "model")
-        res <- rjags::jags.model(file=cldata$file, data=cldata$data, 
+        res <- rjags::jags.model(file=cldata$file, data=cldata$data,
             inits=cldata$inits[[i]], n.chains=1,
             n.adapt=cldata$n.adapt, quiet=cldata$quiet)
         if (!is.null(n.clones) && n.clones > 1) {
@@ -48,10 +48,12 @@ inits, n.chains = 1, n.adapt = 1000, quiet = FALSE)
         pushDcloneEnv(cldata$name, res, type = "results")
         NULL
     }
-    dir <- if (inherits(cl, "SOCKcluster")) 
+    dir <- if (inherits(cl, "SOCKcluster"))
         getwd() else NULL
-    parDosa(cl, 1:n.chains, jagsparallel, cldata, 
-        lib = c("dclone", "rjags"), balancing = "none", size = 1, 
-        rng.type = getOption("dcoptions")$RNG, 
-        cleanup = TRUE, dir = dir, unload=FALSE)
+    parDosa(cl, 1:n.chains, jagsparallel, cldata,
+        lib = c("dclone", "rjags"), balancing = "none", size = 1,
+        rng.type = getOption("dcoptions")$RNG,
+        cleanup = TRUE,
+        dir = NULL, # model now has full path
+        unload=FALSE)
 }

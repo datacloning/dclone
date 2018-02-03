@@ -112,8 +112,8 @@ partype = c("balancing", "parchains", "both"), return.all=FALSE, ...)
         ## parallel computations
         balancing <- if (!getOption("dcoptions")$LB)
             "size" else "both"
-        dir <- if (inherits(cl, "SOCKcluster"))
-            getwd() else NULL
+#        dir <- if (inherits(cl, "SOCKcluster")) # model now has full path
+#            getwd() else NULL
         ## size balancing
         if (partype == "balancing") {
             ## parallel function
@@ -152,7 +152,9 @@ partype = c("balancing", "parchains", "both"), return.all=FALSE, ...)
             pmod <- parDosa(cl, k, dcparallel, cldata,
                 lib=LIB, balancing=balancing, size=k,
                 rng.type=getOption("dcoptions")$RNG,
-                cleanup=TRUE, dir=dir, unload=FALSE, ...)
+                cleanup=TRUE,
+                dir=NULL, # model now has full path
+                unload=FALSE, ...)
             mod <- pmod[[times]]
             ## dctable
             dct <- lapply(1:(times-1), function(i) pmod[[i]]$dct)
@@ -200,7 +202,9 @@ partype = c("balancing", "parchains", "both"), return.all=FALSE, ...)
             pmod <- parDosa(cl, 1:(times*n.chains), dcparallel, cldata,
                 lib=c("dclone", "rjags"), balancing=balancing, size=cldata$k,
                 rng.type=getOption("dcoptions")$RNG,
-                cleanup=TRUE, dir=dir, unload=FALSE, ...)
+                cleanup=TRUE,
+                dir=NULL, # model now has full path
+                unload=FALSE, ...)
             ## binding the chains for each k value
             assemblyfun <- function(mcmc) {
                 n.clones <- nclones(mcmc)
