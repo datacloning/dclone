@@ -1,8 +1,6 @@
 clean.jags.model <-
-function(filename = "model.txt", dir = NULL)
+function(filename = "model.txt")
 {
-    filepath <- if (is.null(dir))
-        as.character(filename) else file.path(dir, filename)
-    invisible(file.remove(filepath))
+    invisible(file.remove(filename))
 }
 

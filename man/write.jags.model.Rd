@@ -12,8 +12,8 @@ Writes or removes a BUGS model file to or from the hard drive.
 }
 \usage{
 write.jags.model(model, filename = "model.txt", digits = 5,
-    dir = getwd(), overwrite = getOption("dcoptions")$overwrite)
-clean.jags.model(filename = "model.bug", dir = NULL)
+    dir = tempdir(), overwrite = getOption("dcoptions")$overwrite)
+clean.jags.model(filename = "model.txt")
 custommodel(model, exclude = NULL, digits = 5)
 }
 \arguments{
@@ -32,9 +32,11 @@ Character, the name of the file to write/remove.
 It can be a \code{link{connection}}.
 }
   \item{dir}{
-Optional argument for directory where to write or
-look for the file to remove. The default \code{NULL}
-uses the path in \code{filename}.
+Optional argument for directory where to write the file.
+The default is to use a temporary directory and use
+\code{\link{file.path}(dir, filename)}.
+When \code{NULL}, it uses the current working directory
+(\code{\link{getwd}()}).
 }
   \item{overwrite}{
 Logical, if \code{TRUE} the \code{filename} will be forced and existing
@@ -53,6 +55,7 @@ Numeric, lines of the model to exclude (see Details).
 intended to be used internally to clean up the JAGS
 model file after estimating sessions,
 ideally via the \code{\link{on.exit}} function.
+It requires the full path as returned by \code{write.jags.model}.
 
 The function \code{custommodel} can be used to exclude some lines
 of the model. This is handy when there are variations of the same model.
@@ -68,10 +71,10 @@ See explanation on help page of \code{\link[R2WinBUGS]{write.model}}.
 \value{
 \code{write.jags.model} invisibly returns the name of the file
 that was written eventually (possibly including random string).
+The return value includes the full path.
 
 \code{clean.jags.model} invisibly returns the result of
 \code{\link{file.remove}} (logical).
-Original working directory is restored.
 
 \code{custommodel} returns an object of class 'custommodel',
 which is a character vector.
