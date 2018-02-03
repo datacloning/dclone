@@ -1,9 +1,8 @@
 clean.jags.model <-
-function(filename = "model.bug", dir = getwd())
+function(filename = "model.bug", dir = NULL)
 {
-    old.dir <- getwd()
-    setwd(dir)
-    on.exit(setwd(old.dir))
-    invisible(file.remove(filename))
+    filepath <- if (is.null(path))
+        as.character(filename) else file.path(path, filename)
+    invisible(file.remove(filepath))
 }
 
