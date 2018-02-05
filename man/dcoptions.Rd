@@ -17,29 +17,29 @@ The tags must come from the parameters described below.
 }
 }
 \details{
-\code{dcoptions} is a convenient way of handling options related to the 
+\code{dcoptions} is a convenient way of handling options related to the
 package.
 }
 \value{
-When parameters are set by \code{dcoptions}, their former values are 
-returned in an invisible named list. Such a list can be passed as an 
+When parameters are set by \code{dcoptions}, their former values are
+returned in an invisible named list. Such a list can be passed as an
 argument to \code{dcoptions} to restore the parameter values.
 Tags are the following:
 
-  \item{autoburnin}{logical, to use in \code{\link{gelman.diag}} 
+  \item{autoburnin}{logical, to use in \code{\link{gelman.diag}}
     (default is \code{TRUE}).}
-  \item{diag}{critical value to use for data cloning convergence 
+  \item{diag}{critical value to use for data cloning convergence
     diagnostics, default is 0.05.}
-  \item{LB}{logical, should load balancing be used, 
+  \item{LB}{logical, should load balancing be used,
     default is \code{FALSE}.}
-  \item{overwrite}{logical, should existing model file be overwritten, 
+  \item{overwrite}{logical, should existing model file be overwritten,
     default is \code{TRUE}.}
-  \item{rhat}{critical value for testing chain convergence,  
+  \item{rhat}{critical value for testing chain convergence,
     default is 1.1.}
-  \item{RNG}{parallel RNG type, either 
-    \code{"none"} (default), \code{"RNGstream"} or \code{"SPRNG"},
-    see \code{\link[snow]{clusterSetupRNG}}.}
-  \item{verbose}{integer, should output be verbose (>0) or not (0), 
+  \item{RNG}{parallel RNG type, either
+    \code{"none"} (default), or \code{"RNGstream"},
+    see \code{\link[parallel]{clusterSetRNGStream}}.}
+  \item{verbose}{integer, should output be verbose (>0) or not (0),
     default is 1.}
 }
 \author{

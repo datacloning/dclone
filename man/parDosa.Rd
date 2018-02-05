@@ -7,7 +7,7 @@ Parallel wrapper function to call from within a function
 }
 \description{
 \code{parDosa} is a wrapper function around many
-functionalities of the \pkg{parallel} and \pkg{snow} packages.
+functionalities of the \pkg{parallel} package.
 It is designed to work closely with MCMC fitting functions,
 e.g. can easily be called from inside of a function.
 }
@@ -15,12 +15,12 @@ e.g. can easily be called from inside of a function.
 parDosa(cl, seq, fun, cldata,
     lib = NULL, dir = NULL, evalq=NULL,
     size = 1, balancing = c("none", "load", "size", "both"),
-    rng.type = c("none", "RNGstream", "SPRNG"),
-    cleanup = TRUE, unload = FALSE, ...)
+    rng.type = c("none", "RNGstream"),
+    cleanup = TRUE, unload = FALSE, iseed=NULL, ...)
 }
 \arguments{
   \item{cl}{
-A cluster object created by \code{\link[snow]{makeCluster}}, or
+A cluster object created by \code{\link[parallel]{makeCluster}}, or
 an integer. It can also be \code{NULL}, see Details.
 }
   \item{seq}{
@@ -32,7 +32,7 @@ A function or character string naming a function.
   \item{cldata}{
 A list containing data.
 This list is then exported to the cluster by
-\code{\link[snow]{clusterExport}}.
+\code{\link[parallel]{clusterExport}}.
 It is stored in a hidden environment.
 Data in \code{cldata} can be used by \code{fun}.
 }
@@ -48,7 +48,7 @@ Can be a vector to set different directories on workers.
 }
   \item{evalq}{
 Character, expressions to evaluate,
-e.g. for changing global options (passed to \code{\link[snow]{clusterEvalQ}}).
+e.g. for changing global options (passed to \code{\link[parallel]{clusterEvalQ}}).
 More than one expressions can be specified as character vector.
 }
   \item{balancing}{
@@ -60,8 +60,13 @@ corresponding to elements of \code{seq} (recycled if needed).
 The default \code{1} indicates equality of problem sizes.
 }
   \item{rng.type}{
-Character, \code{"none"} or the type of RNG on the workers
-(see \code{\link[snow]{clusterSetupRNG}}).
+Character, \code{"none"} will not set any seeds on the workers,
+\code{"RNGstream"} selects the \code{"L'Ecuyer-CMRG"} RNG and then
+distributes streams to the members of a cluster,
+optionally setting the seed of the streams by \code{set.seed(iseed)}
+(otherwise they are set from the current seed of the master process:
+after selecting the L'Ecuyer generator).
+See \code{\link[parallel]{clusterSetRNGStream}}.
 The logical value \code{!(rng.type == "none")} is used for
 forking (e.g. when \code{cl} is integer).
 }
@@ -72,6 +77,11 @@ If \code{TRUE}, effects of \code{dir} argument is also cleaned up.
 }
   \item{unload}{
 logical, if \code{pkg} should be unloaded after applying \code{fun}.
+}
+  \item{iseed}{
+integer or \code{NULL}, passed to \code{\link[parallel]{clusterSetRNGStream}}
+to be supplied to \code{\link{set.seed}} on the workers,
+or NULL not to set reproducible seeds.
 }
   \item{\dots}{
 Other arguments of \code{fun}, that are simple values and not objects.
@@ -93,14 +103,14 @@ exports \code{cldata} and evaluates \code{fun} on \code{seq}.
 No balancing (\code{balancing = "none"}) means, that the problem
 is split into roughly equal
 subsets, without respect to \code{size}
-(see \code{\link[snow]{clusterSplit}}). This splitting
+(see \code{\link[parallel]{clusterSplit}}). This splitting
 is deterministic (reproducible).
 
 Load balancing (\code{balancing = "load"}) means,
 that the problem is not splitted into subsets
 \emph{a priori}, but subsequent items are placed on the
 worker which is empty
-(see \code{\link[snow]{clusterApplyLB}} for load balancing).
+(see \code{\link[parallel]{clusterApplyLB}} for load balancing).
 This splitting is non-deterministic (might not be reproducible).
 
 Size balancing (\code{balancing = "size"}) means,

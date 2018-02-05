@@ -14,8 +14,8 @@ parUnloadModule(cl, name, quiet=FALSE)
 parListModules(cl)
 }
 \arguments{
-  \item{cl}{a cluster object created by the 
-    \pkg{parallel} (or \pkg{snow}) package.}
+  \item{cl}{a cluster object created by the
+    \pkg{parallel} package.}
   \item{name}{character, name of the module to be loaded}
   \item{path}{file path to the location of the DLL. If omitted,
     the option \code{jags.moddir} is used to locate the modules.

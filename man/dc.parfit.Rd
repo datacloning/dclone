@@ -209,7 +209,7 @@ k <- 1:3
 ## sequential version
 dcm <- dc.fit(dat, "beta", glm.model, n.clones=k, multiply="n",
     unchanged="np")
-## parallel version with snow
+## parallel version
 cl <- makePSOCKcluster(3)
 pdcm1 <- dc.parfit(cl, dat, "beta", glm.model, n.clones=k,
     multiply="n", unchanged="np",
