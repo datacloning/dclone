@@ -2,9 +2,7 @@ clusterSplitSB <-
 function(cl=NULL, seq, size = 1)
 {
     if (is.null(cl))
-        cl <- get("default", envir = .reg)
-    if (is.null(cl))
-        stop("no cluster 'cl' supplied and none is registered")
+        stop("no cluster 'cl' supplied")
     if (!inherits(cl, "cluster"))
         stop("not a valid cluster")
     m <- length(seq)

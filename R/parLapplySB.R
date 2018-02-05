@@ -2,9 +2,7 @@ parLapplySB <-
 function(cl=NULL, x, size = 1, fun, ...)
 {
     if (is.null(cl))
-        cl <- get("default", envir = .reg)
-    if (is.null(cl))
-        stop("no cluster 'cl' supplied and none is registered")
+        stop("no cluster 'cl' supplied")
     if (!inherits(cl, "cluster"))
         stop("not a valid cluster")
     res <- do.call(c, clusterApply(cl, x = clusterSplitSB(cl, x, size),

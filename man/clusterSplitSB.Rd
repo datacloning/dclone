@@ -18,8 +18,7 @@ parLapplySLB(cl = NULL, x, size = 1, fun, ...)
 \arguments{
   \item{cl}{
 A cluster object created by \code{\link[parallel]{makeCluster}}
-the the package \pkg{parallel}. If \code{NULL}, use the
-registered default cluster.
+the the package \pkg{parallel}.
 }
   \item{x, seq}{
 A vector to split.
