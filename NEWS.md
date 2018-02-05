@@ -1,5 +1,11 @@
 # dclone package version history
 
+## Version 2.2-0, Feb 5, 2018
+
+* Dependence on package **snow** is removed.
+* Functions related to parallel load balancing (e.g. parLapplyLB)
+  have been rewritten.
+
 ## Version 2.1-3, Feb 2, 2018
 
 * dc.fit: n.clones=1 is acceptable and will not throw error.
