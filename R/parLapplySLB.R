@@ -1,7 +1,7 @@
 parLapplySLB <-
-function(cl, x, size=1, fun, ...)
+function(cl=NULL, x, size=1, fun, ...)
 {
-    requireNamespace("snow")
+#    requireNamespace("snow")
     fun <- match.fun(fun)
     m <- length(x)
     size <- rep(size, m)[1:m]

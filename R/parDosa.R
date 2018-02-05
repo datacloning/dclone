@@ -2,8 +2,8 @@ parDosa <-
 function(cl, seq, fun, cldata,
     lib = NULL, dir = NULL, evalq = NULL,
     size = 1, balancing = c("none", "load", "size", "both"),
-    rng.type = c("none", "RNGstream", "SPRNG"),
-    cleanup = TRUE, unload = FALSE, ...)
+    rng.type = c("none", "RNGstream"),
+    cleanup = TRUE, unload = FALSE, iseed=NULL, ...)
 {
     ## get defaults right for cl argument
     cl <- evalParallelArgument(cl, quit=TRUE)
@@ -23,7 +23,7 @@ function(cl, seq, fun, cldata,
         on.exit(clearDcloneEnv(list=listDcloneEnv(type = "model"),
             type = "model"))
 
-        requireNamespace("snow")
+        #requireNamespace("parallel")
         balancing <- match.arg(balancing)
         ## loads lib on each worker
         if (!is.null(lib)) {
@@ -34,7 +34,9 @@ function(cl, seq, fun, cldata,
         }
         ## set seed on each worker
         if (rng.type != "none") {
-            clusterSetupRNG(cl, type = rng.type)
+            if (rng.type == "SPRNG")
+                stop("type=SPRNG is deprecated, use RNGstream instead")
+            clusterSetRNGStream(cl=cl, iseed=iseed)
         }
         ## sets common working directory, but dir can be a vector as well
         if (!is.null(dir)) {
