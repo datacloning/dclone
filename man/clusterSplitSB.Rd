@@ -11,14 +11,14 @@ Size balancing
 Functions for size balancing.
 }
 \usage{
-clusterSplitSB(cl, seq, size = 1)
-parLapplySB(cl, x, size = 1, fun, ...)
-parLapplySLB(cl, x, size = 1, fun, ...)
+clusterSplitSB(cl = NULL, seq, size = 1)
+parLapplySB(cl = NULL, x, size = 1, fun, ...)
+parLapplySLB(cl = NULL, x, size = 1, fun, ...)
 }
 \arguments{
   \item{cl}{
 A cluster object created by \code{\link[parallel]{makeCluster}}
-the the package \pkg{parallel} (or \pkg{snow}).
+the the package \pkg{parallel}.
 }
   \item{x, seq}{
 A vector to split.

@@ -1,9 +1,17 @@
 # dclone package version history
 
+<<<<<<< HEAD
 ## Version 2.2-0, Feb 26, 2018
 
 * Removed dependence on superseded package snow,
   now imports from parallel.
+=======
+## Version 2.2-0, Feb 5, 2018
+
+* Dependence on package **snow** is removed.
+* Functions related to parallel load balancing (e.g. parLapplyLB)
+  have been rewritten.
+>>>>>>> origin/master
 
 ## Version 2.1-3, Feb 2, 2018
 
