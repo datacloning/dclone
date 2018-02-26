@@ -1,5 +1,10 @@
 # dclone package version history
 
+## Version 2.2-0, Feb 26, 2018
+
+* Removed dependence on superseded package snow,
+  now imports from parallel.
+
 ## Version 2.1-3, Feb 2, 2018
 
 * dc.fit: n.clones=1 is acceptable and will not throw error.
