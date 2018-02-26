@@ -4,7 +4,7 @@
 
 * Removed dependence on superseded package snow,
   now imports from parallel.
-* Functions related to parallel load balancing (e.g. parLapplyLB)
+* Functions related to parallel load balancing (e.g. parLapplySB)
   have been rewritten.
 
 ## Version 2.1-3, Feb 2, 2018
