@@ -1,6 +1,7 @@
 dc.fit <-
 function(data, params, model, inits, n.clones, multiply=NULL, unchanged=NULL,
-update=NULL, updatefun=NULL, initsfun=NULL, flavour = c("jags", "bugs"),
+update=NULL, updatefun=NULL, initsfun=NULL,
+flavour = c("jags", "bugs", "stan"),
 n.chains=3, return.all=FALSE, ...)
 {
     dclone::.dcFit(data, params, model, inits, n.clones,

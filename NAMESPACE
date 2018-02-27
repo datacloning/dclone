@@ -1,7 +1,6 @@
 ## exporting main dclone functions
 export("dclone", "dcdim", "dciid", "dctr",
        "jags.fit", "bugs.fit", "dc.fit", ".dcFit",
-       "stan.fit", "stan.model", "stan.parfit",
        "clean.jags.model", "write.jags.model", "custommodel",
        "updated.model",
        "dcsd",
@@ -142,5 +141,5 @@ export("stan.fit", "stan.parfit", "stan.model")
 S3method("stan.model", "mcmc.list")
 S3method("stan.model", "mcmc.list.dc")
 importFrom("rstan",
-  "stan", "get_stanmodel", "sampling", "sflist2stanlist")
+  "stan", "get_stanmodel", "sampling", "sflist2stanfit")
 

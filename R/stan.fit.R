@@ -128,10 +128,27 @@ function(data, params, model, inits = NULL,
         names(idx) <- pars[!nulls]
         idx
     }
+    rstan_check_pars <- function (allpars, pars) {
+        pars_wo_ws <- gsub("\\s+", "", pars)
+        m <- which(match(pars_wo_ws, allpars, nomatch = 0) == 0)
+        if (length(m) > 0)
+            stop("no parameter ", paste(pars[m], collapse = ", "))
+        if (length(pars_wo_ws) == 0)
+            stop("no parameter specified (pars is empty)")
+        unique(pars_wo_ws)
+    }
+    rstan_check_pars_second <- function (sim, pars) {
+        if (missing(pars))
+            return(sim$pars_oi)
+        allpars <- c(sim$pars_oi, sim$fnames_oi)
+        rstan_check_pars(allpars, pars)
+    }
     ## original def
-    pars <- if (missing(pars))
+    pars <- if (missing(pars)) {
         object@sim$pars_oi
-    else check_pars_second(object@sim, pars)
+    } else {
+        rstan_check_pars_second(object@sim, pars)
+    }
     pars <- rstan_remove_empty_pars(pars, object@sim$dims_oi)
     tidx <- rstan_pars_total_indexes(object@sim$pars_oi, object@sim$dims_oi,
         object@sim$fnames_oi, pars)

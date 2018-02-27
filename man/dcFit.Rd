@@ -13,7 +13,7 @@ This is the workhorse for \code{\link{dc.fit}} and
 .dcFit(data, params, model, inits, n.clones,
     multiply = NULL, unchanged = NULL,
     update = NULL, updatefun = NULL, initsfun = NULL,
-    flavour = c("jags", "bugs"),
+    flavour = c("jags", "bugs", "stan"),
     n.chains=3, cl = NULL, parchains = FALSE,
     return.all=FALSE, ...)
 }
@@ -75,6 +75,7 @@ See Details and Examples.
   \item{flavour}{
   If \code{"jags"}, the function \code{\link{jags.fit}} is called.
   If \code{"bugs"}, the function \code{\link{bugs.fit}} is called.
+  If \code{"stan"}, the function \code{\link{stan.fit}} is called.
 }
   \item{n.chains}{
 Number of chains to generate.

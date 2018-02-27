@@ -12,7 +12,7 @@ Low level functions for implementing
     complex models using data cloning and Bayesian
     Markov chain Monte Carlo methods.
     Sequential and parallel MCMC support
-    for JAGS, WinBUGS and OpenBUGS.
+    for JAGS, WinBUGS, OpenBUGS, and Stan.
 
 Main functions include:
 
@@ -24,10 +24,10 @@ Main functions include:
   }
 
   \item{
-    \code{\link{jags.fit}}, \code{\link{bugs.fit}}:
-    conveniently fit BUGS models.
-    \code{\link{jags.parfit}} and \code{\link{bugs.parfit}} fits
-    chains on parallel workers.
+    \code{\link{jags.fit}}, \code{\link{bugs.fit}}, \code{\link{stan.fit}}:
+    conveniently fit JAGS/BUGS/Stan models.
+    \code{\link{jags.parfit}}, \code{\link{bugs.parfit}}, \code{\link{stan.parfit}}
+    fits chains on parallel workers.
   }
 
   \item{
@@ -55,7 +55,7 @@ Main functions include:
   \item{
     \code{\link{write.jags.model}}, \code{\link{clean.jags.model}},
     \code{\link{custommodel}}:
-    convenient functions for handling \code{BUGS} models.
+    convenient functions for handling \code{JAGS/BUGS/Stan} models.
   }
 
   \item{

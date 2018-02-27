@@ -19,7 +19,7 @@ stan.fit(data, params, model, inits = NULL,
     stan.model = TRUE, fit = NA, ...)
 stan.model(object, ...)
 stan.parfit(cl, data, params, model, inits = NULL,
-    seed = sample.int(.Machine$integer.max, 1),
+    seed = sample.int(.Machine$integer.max, n.chains),
     n.chains = 3,
     format = c("mcmc.list", "stanfit"),
     stan.model = TRUE, fit = NA, ...)
@@ -61,6 +61,10 @@ A cluster object created by \code{\link[parallel]{makeCluster}}, or
 an integer, see \code{\link{parDosa}} and
 \code{\link{evalParallelArgument}}.
 }
+  \item{object}{
+A fitted MCMC object ('mcmc.list' class for example),
+with \code{"stan.model"} attribute.
+}
   \item{\dots}{
 Further arguments.
 }
@@ -94,51 +98,56 @@ Methods: \code{\link{dcsd}}, \code{\link{confint.mcmc.list.dc}},
 }
 \examples{
 \dontrun{
-model <- custommodel("data {
-      int<lower=0> N;
-      vector[N] y;
-      vector[N] x;
+if (require(rstan)) {
+    model <- custommodel("data {
+          int<lower=0> N;
+          vector[N] y;
+          vector[N] x;
+        }
+        parameters {
+          real alpha;
+          real beta;
+          real<lower=0> sigma;
+        }
+        model {
+          alpha ~ normal(0,10);
+          beta ~ normal(0,10);
+          sigma ~ cauchy(0,5);
+          for (n in 1:N)
+            y[n] ~ normal(alpha + beta * x[n], sigma);
+        }")
+    N <- 100
+    alpha <- 1
+    beta <- -1
+    sigma <- 0.5
+    x <- runif(N)
+    y <- rnorm(N, alpha + beta * x, sigma)
+    dat <- list(N=N, y=y, x=x)
+    params <- c("alpha", "beta", "sigma")
+    ## compile on 1st time only
+    fit0 <- stan.fit(dat, params, model)
+    ## reuse compiled fit0
+    fit <- stan.fit(dat, params, model, fit=fit0)
+    sm <- stan.model(fit)
+    summary(fit)
+    sm
+
+    ## data cloning
+    dcdat <- dclone(dat, n.clones=2, multiply="N")
+    dcfit <- stan.fit(dcdat, params, model, fit=fit0)
+    summary(dcfit)
+    nclones(dcfit)
+
+    ## using parallel options
+    cl <- makeCluster(2)
+    ## cannot utilize compiled fit0
+    fit2 <- stan.parfit(cl=cl, dat, params, model)
+    stopCluster(cl)
+    if (.Platform$OS.type != "windows") {
+        ## utilize compiled fit0
+        fit3 <- stan.parfit(cl=2, dat, params, model, fit=fit0)
     }
-    parameters {
-      real alpha;
-      real beta;
-      real<lower=0> sigma;
-    }
-    model {
-      alpha ~ normal(0,10);
-      beta ~ normal(0,10);
-      sigma ~ cauchy(0,5);
-      for (n in 1:N)
-        y[n] ~ normal(alpha + beta * x[n], sigma);
-    }")
-N <- 100
-alpha <- 1
-beta <- -1
-sigma <- 0.5
-x <- runif(N)
-y <- rnorm(N, alpha + beta * x, sigma)
-dat <- list(N=N, y=y, x=x)
-params <- c("alpha", "beta", "sigma")
-## compile on 1st time only
-fit0 <- stan.fit(dat, params, model)
-## reuse compiled fit0
-fit <- stan.fit(dat, params, model, fit=fit0)
-sm <- stan.model(fit)
-summary(fit)
-sm
-
-dcdat <- dclone(dat, n.clones=2, multiply="N")
-dcfit <- stan.fit(dcdat, params, model, fit=fit0)
-summary(dcfit)
-nclones(dcfit)
-
-ff <- stan.parfit(cl=2, dat, params, model, fit=fit0)
-cl <- makeCluster(2)
-## if fit is provided Stan keep recompiling
-ff <- stan.parfit(cl=cl, dat, params, model, fit=fit0)
-ff <- stan.parfit(cl=cl, dat, params, model)
-stopCluster(cl)
-
+}
 }
 }
 \keyword{ models }
