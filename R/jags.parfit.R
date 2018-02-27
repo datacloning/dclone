@@ -2,7 +2,7 @@ jags.parfit <-
 function(cl, data, params, model, inits = NULL, n.chains = 3, ...)
 {
     ## get defaults right for cl argument
-    cl <- evalParallelArgument(cl, quit=TRUE)
+    cl <- evalParallelArgument(cl, quit=FALSE)
     ## sequential evaluation falls back on jags.fit
     if (is.null(cl)) {
         return(jags.fit(data, params, model,

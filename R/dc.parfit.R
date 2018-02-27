@@ -1,11 +1,12 @@
 dc.parfit <-
 function(cl, data, params, model, inits, n.clones, multiply = NULL,
 unchanged = NULL, update = NULL, updatefun = NULL, initsfun = NULL,
-flavour = c("jags", "bugs"), n.chains = 3,
+flavour = c("jags", "bugs", "stan"),
+n.chains = 3,
 partype = c("balancing", "parchains", "both"), return.all=FALSE, ...)
 {
     ## get defaults right for cl argument
-    cl <- evalParallelArgument(cl, quit=TRUE)
+    cl <- evalParallelArgument(cl, quit=FALSE)
     ## sequential evaluation falls back on dc.fit
     if (is.null(cl)) {
         return(dc.fit(data, params, model, inits, n.clones,
@@ -21,6 +22,8 @@ partype = c("balancing", "parchains", "both"), return.all=FALSE, ...)
     if (flavour=="bugs" && !is.null(list(...)$format))
         if (list(...)$format == "bugs")
             stop("format='bugs' is not available for parallel computations")
+    if (flavour=="stan" && !is.null(list(...)$stan.model))
+        stop("'stan.model' argument is not available for parallel computations")
     ## get parallel type
     partype <- match.arg(partype)
     ## some arguments are ignored with size balancing
@@ -123,11 +126,16 @@ partype = c("balancing", "parchains", "both"), return.all=FALSE, ...)
                     unchanged=cldata$unchanged)
                 INITS <- if (!is.null(cldata$initsfun) && !cldata$INIARGS)
                     initsfun(,i) else cldata$inits
-                mod <- if (flavour == "jags") {
-                    jags.fit(data=jdat, params=cldata$params, model=cldata$model,
+                if (flavour == "jags") {
+                    mod <- jags.fit(data=jdat, params=cldata$params, model=cldata$model,
                         inits=INITS, n.chains=cldata$n.chains, ...)
-                } else {
-                    bugs.fit(data=jdat, params=cldata$params, model=cldata$model,
+                }
+                if (flavour == "bugs") {
+                    mod <- bugs.fit(data=jdat, params=cldata$params, model=cldata$model,
+                        inits=INITS, n.chains=cldata$n.chains, format="mcmc.list", ...)
+                }
+                if (flavour == "stan") {
+                    mod <- stan.fit(data=jdat, params=cldata$params, model=cldata$model,
                         inits=INITS, n.chains=cldata$n.chains, format="mcmc.list", ...)
                 }
                 vn <- varnames(mod)
@@ -138,7 +146,8 @@ partype = c("balancing", "parchains", "both"), return.all=FALSE, ...)
             }
             if (flavour == "jags") {
                 LIB <- c("dclone", "rjags")
-            } else {
+            }
+            if (flavour == "bugs") {
                 LIB <- "dclone"
                 if (is.null(PROGRAM))
                     PROGRAM <- "winbugs"
@@ -148,6 +157,9 @@ partype = c("balancing", "parchains", "both"), return.all=FALSE, ...)
                     LIB <- c(LIB, "R2WinBUGS", "BRugs")
                 if (PROGRAM == "openbugs")
                     LIB <- c(LIB, "R2OpenBUGS")
+            }
+            if (flavour == "stan") {
+                LIB <- c("dclone", "rstan")
             }
             pmod <- parDosa(cl, k, dcparallel, cldata,
                 lib=LIB, balancing=balancing, size=k,
@@ -189,12 +201,18 @@ partype = c("balancing", "parchains", "both"), return.all=FALSE, ...)
                 cldata <- pullDcloneEnv("cldata", type = "model")
                 jdat <- dclone(cldata$data, cldata$k[i],
                     multiply=cldata$multiply, unchanged=cldata$unchanged)
-                mod <- if (flavour == "jags") {
-                    jags.fit(data=jdat, params=cldata$params,
+                if (flavour == "jags") {
+                    mod <- jags.fit(data=jdat, params=cldata$params,
                         model=cldata$model, inits=cldata$inits[[i]],
                         n.chains=1, updated.model=FALSE, ...)
-                } else {
-                    bugs.fit(data=jdat, params=cldata$params,
+                }
+                if (flavour == "bugs") {
+                    mod <- bugs.fit(data=jdat, params=cldata$params,
+                        model=cldata$model, inits=cldata$inits[[i]],
+                        n.chains=1, format="mcmc.list", ...)
+                }
+                if (flavour == "stan") {
+                    mod <- stan.fit(data=jdat, params=cldata$params,
                         model=cldata$model, inits=cldata$inits[[i]],
                         n.chains=1, format="mcmc.list", ...)
                 }

@@ -1,6 +1,7 @@
 .dcFit <-
 function(data, params, model, inits, n.clones, multiply = NULL, unchanged = NULL,
-update = NULL, updatefun = NULL, initsfun = NULL, flavour = c("jags", "bugs"),
+update = NULL, updatefun = NULL, initsfun = NULL,
+flavour = c("jags", "bugs", "stan"),
 n.chains=3, cl = NULL, parchains = FALSE, return.all=FALSE, ...)
 {
     flavour <- match.arg(flavour)
@@ -73,12 +74,22 @@ n.chains=3, cl = NULL, parchains = FALSE, return.all=FALSE, ...)
             } else {
                 mod <- jags.fit(jdat, params, model, inits, n.chains, ...)
             }
-        } else {
+        }
+        if (flavour == "bugs") {
             if (parchains) {
                 mod <- bugs.parfit(cl, jdat, params, model, inits,
                     n.chains=n.chains, format="mcmc.list", ...)
             } else {
                 mod <- bugs.fit(jdat, params, model, inits,
+                    n.chains=n.chains, format="mcmc.list", ...)
+            }
+        }
+        if (flavour == "stan") {
+            if (parchains) {
+                mod <- stan.parfit(cl, jdat, params, model, inits,
+                    n.chains=n.chains, format="mcmc.list", ...)
+            } else {
+                mod <- stan.fit(jdat, params, model, inits,
                     n.chains=n.chains, format="mcmc.list", ...)
             }
         }

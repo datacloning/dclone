@@ -4,10 +4,10 @@
 \alias{update.mcmc.list}
 \alias{updated.model}
 \title{
-Automatic updating of an MCMC object
+Automatic updating of an MCMC object from JAGS
 }
 \description{
-Automatic updating of an MCMC object until a 
+Automatic updating of an MCMC object until a
 desired statistic value reached.
 }
 \usage{
@@ -17,22 +17,22 @@ updated.model(object, ...)
 }
 \arguments{
   \item{object}{
-A fitted MCMC object ('mcmc.list' class for example), with 
+A fitted MCMC object ('mcmc.list' class for example), with
 \code{"updated.model"} attribute.
 }
   \item{fun}{
-A function that evaluates convergence of the MCMC chains, 
+A function that evaluates convergence of the MCMC chains,
 must return logical result. See Examples.
-The iterative updating quits when return value is \code{TRUE}. 
+The iterative updating quits when return value is \code{TRUE}.
 Can be missing, in which case there is no stopping rule.
 }
   \item{times}{
-Number of times the updating should be repeated. 
+Number of times the updating should be repeated.
 If \code{fun} returns \code{TRUE}, updating
 is finished and MCMC object is returned.
 }
   \item{n.update}{
-Number of updating iterations. The default 0 indicates, 
+Number of updating iterations. The default 0 indicates,
 that only \code{n.iter} iterations are used.
 }
   \item{n.iter}{
@@ -50,12 +50,12 @@ Other arguments passed to \code{\link[rjags]{coda.samples}}.
 \code{updated.model} can be used to retrieve the updated model
 from an MCMC object fitted via the function \code{\link{jags.fit}}
 and \code{\link{dc.fit}} (with \code{flavour = "jags"}).
-The \code{update} method is a wrapper for this purpose, 
+The \code{update} method is a wrapper for this purpose,
 specifically designed
 for the case when MCMC convergence is problematic. A function
-is evaluated on the updated model in each iteration of 
+is evaluated on the updated model in each iteration of
 the updating process,
-and an MCMC object is returned when iteration ends, 
+and an MCMC object is returned when iteration ends,
 or when the evaluated
 function returns \code{TRUE} value.
 
@@ -66,12 +66,12 @@ Data cloning information is preserved.
 }
 \value{
 \code{updated.model} returns the state of the JAGS model after updating
-and sampling. This can be further updated by the function 
+and sampling. This can be further updated by the function
 \code{\link[rjags]{update.jags}}
-and sampled by \code{\link[rjags]{coda.samples}} if 
+and sampled by \code{\link[rjags]{coda.samples}} if
 convergence diagnostics were not satisfactory.
 
-\code{update} returns an MCMC object with 
+\code{update} returns an MCMC object with
 \code{"updated.model"} attribute.
 }
 \author{

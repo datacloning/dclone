@@ -14,7 +14,7 @@ increasing the number of clones.
 dc.fit(data, params, model, inits, n.clones,
     multiply = NULL, unchanged = NULL,
     update = NULL, updatefun = NULL, initsfun = NULL,
-    flavour = c("jags", "bugs"), n.chains = 3,
+    flavour = c("jags", "bugs", "stan"), n.chains = 3,
     return.all=FALSE, ...)
 }
 \arguments{
@@ -75,6 +75,7 @@ See Details and Examples.
   \item{flavour}{
   If \code{"jags"}, the function \code{\link{jags.fit}} is called.
   If \code{"bugs"}, the function \code{\link{bugs.fit}} is called.
+  If \code{"stan"}, the function \code{\link{stan.fit}} is called.
 }
   \item{n.chains}{
 Number of chains to generate.
@@ -266,6 +267,43 @@ sim4 <- dc.fit(dat, param, bugs.model, n.clones=1:2,
     flavour="bugs", program="openbugs", multiply="J",
     n.iter=2000, n.thin=1)
 summary(sim4)
+
+## Using Stan
+if (require(rstan)) {
+    model <- custommodel("data {
+          int<lower=0> N;
+          vector[N] y;
+          vector[N] x;
+        }
+        parameters {
+          real alpha;
+          real beta;
+          real<lower=0> sigma;
+        }
+        model {
+          alpha ~ normal(0,10);
+          beta ~ normal(0,10);
+          sigma ~ cauchy(0,5);
+          for (n in 1:N)
+            y[n] ~ normal(alpha + beta * x[n], sigma);
+        }")
+    N <- 100
+    alpha <- 1
+    beta <- -1
+    sigma <- 0.5
+    x <- runif(N)
+    y <- rnorm(N, alpha + beta * x, sigma)
+    dat <- list(N=N, y=y, x=x)
+    params <- c("alpha", "beta", "sigma")
+    ## compile on 1st time only
+    fit0 <- stan.fit(dat, params, model)
+    ## reuse compiled fit0
+    dcfit <- dc.fit(dat, params, model, n.clones=1:2,
+        flavour="stan", multiply="N", fit=fit0)
+    summary(dcfit)
+    stan.model(dcfit)
+    dcdiag(dcfit)
+}
 }
 }
 \keyword{ models }
