@@ -4,7 +4,7 @@ n.chains = 3, seed,
 program=c("winbugs", "openbugs", "brugs"), ...) ## only mcmc.list format is supported when cl is not NULL
 {
     ## get defaults right for cl argument
-    cl <- evalParallelArgument(cl, quit=TRUE)
+    cl <- evalParallelArgument(cl, quit=FALSE)
     ## sequential evaluation falls back on jags.fit
     if (is.null(cl)) {
         return(bugs.fit(data, params, model,

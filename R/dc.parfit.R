@@ -5,7 +5,7 @@ flavour = c("jags", "bugs"), n.chains = 3,
 partype = c("balancing", "parchains", "both"), return.all=FALSE, ...)
 {
     ## get defaults right for cl argument
-    cl <- evalParallelArgument(cl, quit=TRUE)
+    cl <- evalParallelArgument(cl, quit=FALSE)
     ## sequential evaluation falls back on dc.fit
     if (is.null(cl)) {
         return(dc.fit(data, params, model, inits, n.clones,
