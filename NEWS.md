@@ -1,5 +1,11 @@
 # dclone package version history
 
+## Version 2.2-1, Feb 27, 2018
+
+* Support for Stan incorporated.
+* New functions: stan.fit, stan.parfit, stan.model.
+* dc.fit and dc.parfit accepts flavour="stan"."
+
 ## Version 2.2-0, Feb 26, 2018
 
 * Removed dependence on superseded package snow,
