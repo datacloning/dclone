@@ -11,20 +11,12 @@ Description: Low level functions for implementing
     Markov chain Monte Carlo methods
     as described in Solymos 2010 (R Journal 2(2):29--37).
     Sequential and parallel MCMC support
-<<<<<<< HEAD
-    for JAGS, WinBUGS, OpenBUGS, and Stan.
-=======
-    for 'JAGS', 'WinBUGS' and 'OpenBUGS'.
->>>>>>> master
+    for 'JAGS', 'WinBUGS', 'OpenBUGS', and 'Stan'.
 License: GPL-2
 Depends: R (>= 2.15.1), coda (>= 0.13), parallel, Matrix
 Suggests: MASS, lattice, R2WinBUGS,
     R2OpenBUGS, BRugs, rlecuyer
-<<<<<<< HEAD
-Imports: methods, stats, rjags (>= 4-4), snow, rstan
-=======
-Imports: methods, stats, rjags (>= 4-4)
->>>>>>> master
+Imports: methods, stats, rjags (>= 4-4), rstan
 SystemRequirements: none, one or more of JAGS (>= 3.0.0),
     WinBUGS (>= 1.4), OpenBUGS (>= 3.2.2), Stan
 URL: https://groups.google.com/forum/#!forum/dclone-users,
