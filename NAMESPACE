@@ -59,8 +59,8 @@ importFrom("utils", "flush.console")
 importFrom("coda", "varnames", "nchain", "mcmc", "as.mcmc",
       "nvar", "gelman.diag", "niter")
 importFrom("parallel", "clusterSplit", "clusterEvalQ", "parLapply",
-      "clusterExport", "clusterApplyLB", "clusterApply", "clusterCall")
-importFrom("snow", "clusterSetupRNG", "docall")
+      "clusterExport", "clusterApplyLB", "clusterApply", "clusterCall",
+      "clusterSetRNGStream")
 importFrom("rjags", "coda.samples", "list.modules")
 
 ## export methods for main dclone functions/classes

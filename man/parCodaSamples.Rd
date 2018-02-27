@@ -13,7 +13,7 @@ parCodaSamples(cl, model, variable.names, n.iter, thin = 1, na.rm = TRUE, ...)
 }
 \arguments{
   \item{cl}{
-    A cluster object created by \code{\link[snow]{makeCluster}}, or
+    A cluster object created by \code{\link[parallel]{makeCluster}}, or
     an integer. It can also be \code{NULL}, see
     \code{\link{parDosa}}.
   }

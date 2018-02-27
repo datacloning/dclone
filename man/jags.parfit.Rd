@@ -6,8 +6,8 @@
 Parallel computing with JAGS
 }
 \description{
-Does the same job as \code{\link[dclone]{jags.fit}}, 
-but parallel chanis are run on parallel workers, thus 
+Does the same job as \code{\link[dclone]{jags.fit}},
+but parallel chains are run on parallel workers, thus
 computations can be faster (up to 1/\code{n.chains}) for long MCMC runs.
 }
 \usage{
@@ -16,35 +16,35 @@ jags.parfit(cl, data, params, model, inits = NULL, n.chains = 3, ...)
 \arguments{
   \item{cl}{
 A cluster object created by \code{\link[parallel]{makeCluster}}, or
-an integer, see \code{\link{parDosa}} and 
+an integer, see \code{\link{parDosa}} and
 \code{\link{evalParallelArgument}}.
 }
   \item{data}{
-A named list or environment containing the data. If an environment, 
+A named list or environment containing the data. If an environment,
 \code{data} is coerced into a list.
 }
   \item{params}{
 Character vector of parameters to be sampled.
 }
   \item{model}{
-Character string (name of the model file), a function 
-containing the model, or a or \code{\link{custommodel}} 
+Character string (name of the model file), a function
+containing the model, or a or \code{\link{custommodel}}
 object (see Examples).
 }
   \item{inits}{
-Specification of initial values in the form of a 
+Specification of initial values in the form of a
 list or a function, can be missing.
 Missing value setting can include RNG seed information,
 see Initialization at \code{\link[rjags]{jags.model}}.
 If this is a function and using 'snow' type
-cluster as \code{cl}, the function must be self containing, i.e. 
+cluster as \code{cl}, the function must be self containing, i.e.
 not having references to R objects outside of the
-function, or the objects should be exported with 
+function, or the objects should be exported with
 \code{\link{clusterExport}} before calling \code{jags.parfit}.
 Forking type parallelism does not require such attention.
 }
   \item{n.chains}{
-Number of chains to generate, must be higher than 1. Ideally, 
+Number of chains to generate, must be higher than 1. Ideally,
 this is equal to the number of parallel workers in the cluster.
 }
   \item{...}{
@@ -52,20 +52,20 @@ Other arguments passed to \code{\link[dclone]{jags.fit}}.
 }
 }
 \details{
-Chains are run on parallel workers, 
+Chains are run on parallel workers,
 and the results are combined in the end.
 
 No update method is available for parallel \code{mcmc.list} objects.
 See \code{\link{parUpdate}} and related parallel functions
-(\code{\link{parJagsModel}}, \code{\link{parCodaSamples}}) 
+(\code{\link{parJagsModel}}, \code{\link{parCodaSamples}})
 for such purpose.
 
-Additionally loaded JAGS modules (e.g. \code{"glm"}, 
+Additionally loaded JAGS modules (e.g. \code{"glm"},
 \code{"lecuyer"}) need to be loaded to the workers
 when using 'snow' type cluster as \code{cl} argument. See Examples.
 
 The use of the \code{"lecuyer"} module is recommended when
-running more than 4 chains. See Examples and 
+running more than 4 chains. See Examples and
 \code{\link{parallel.inits}}.
 }
 \value{
@@ -77,7 +77,7 @@ Peter Solymos, \email{solymos@ualberta.ca}
 \seealso{
 Sequential version: \code{\link[dclone]{jags.fit}}
 
-Function for stepwise modeling with JAGS: \code{\link{parJagsModel}}, 
+Function for stepwise modeling with JAGS: \code{\link{parJagsModel}},
 \code{\link{parUpdate}}, \code{\link{parCodaSamples}}
 }
 \examples{
@@ -112,13 +112,13 @@ pm[1:2,]
 summary(pm)
 ## examples on how to use initial values
 ## fixed initial values
-inits <- list(list(beta=matrix(c(0,1),1,2)), 
-    list(beta=matrix(c(1,0),1,2)), 
+inits <- list(list(beta=matrix(c(0,1),1,2)),
+    list(beta=matrix(c(1,0),1,2)),
     list(beta=matrix(c(0,0),1,2)))
 pm2 <- jags.parfit(cl, dat, "beta", glm.model, inits)
 ## random numbers generated prior to jags.parfit
-inits <- list(list(beta=matrix(rnorm(2),1,2)), 
-    list(beta=matrix(rnorm(2),1,2)), 
+inits <- list(list(beta=matrix(rnorm(2),1,2)),
+    list(beta=matrix(rnorm(2),1,2)),
     list(beta=matrix(rnorm(2),1,2)))
 pm3 <- jags.parfit(cl, dat, "beta", glm.model, inits)
 ## self contained function

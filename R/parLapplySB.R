@@ -1,12 +1,11 @@
 parLapplySB <-
-function(cl, x, size = 1, fun, ...)
+function(cl=NULL, x, size = 1, fun, ...)
 {
-    requireNamespace("snow")
-    fun <- match.fun(fun)
-    s <- clusterSplitSB(cl, x, size)
-    id <- clusterSplitSB(cl, 1:length(x), size)
-    res <- clusterApply(cl, s, lapply, fun, ...)
-    res <- docall(c, res)
-    res <- res[order(unlist(id))]
-    res
+    if (is.null(cl))
+        stop("no cluster 'cl' supplied")
+    if (!inherits(cl, "cluster"))
+        stop("not a valid cluster")
+    res <- do.call(c, clusterApply(cl, x = clusterSplitSB(cl, x, size),
+        fun = lapply, fun, ...), quote = TRUE)
+    res[order(unlist(clusterSplitSB(cl, 1:length(x), size)))]
 }

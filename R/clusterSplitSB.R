@@ -1,6 +1,10 @@
-clusterSplitSB <- 
-function(cl, seq, size = 1) 
+clusterSplitSB <-
+function(cl=NULL, seq, size = 1)
 {
+    if (is.null(cl))
+        stop("no cluster 'cl' supplied")
+    if (!inherits(cl, "cluster"))
+        stop("not a valid cluster")
     m <- length(seq)
     size <- rep(size, m)[1:m]
     ## equal size

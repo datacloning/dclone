@@ -6,15 +6,16 @@
 Iterative model fitting with data cloning
 }
 \description{
-\code{\link{jags.fit}} or \code{\link{bugs.fit}} is 
+\code{\link{jags.fit}} or \code{\link{bugs.fit}} is
 iteratively used to fit a model with
 increasing the number of clones.
 }
 \usage{
-dc.fit(data, params, model, inits, n.clones, 
-    multiply = NULL, unchanged = NULL, 
+dc.fit(data, params, model, inits, n.clones,
+    multiply = NULL, unchanged = NULL,
     update = NULL, updatefun = NULL, initsfun = NULL,
-    flavour = c("jags", "bugs"), n.chains = 3, ...)
+    flavour = c("jags", "bugs"), n.chains = 3,
+    return.all=FALSE, ...)
 }
 \arguments{
   \item{data}{
@@ -28,64 +29,70 @@ as parameters to use in calculating the data cloning
 diagnostics.
 }
   \item{model}{
-Character string (name of the model file), a function containing 
+Character string (name of the model file), a function containing
 the model, or a \code{\link{custommodel}} object (see Examples).
 }
   \item{inits}{
-Optional specification of initial values in the form of a list or a 
-function (see Initialization at \code{\link[rjags]{jags.model}}). 
-If missing, will be treated as \code{NULL} and initial values will 
+Optional specification of initial values in the form of a list or a
+function (see Initialization at \code{\link[rjags]{jags.model}}).
+If missing, will be treated as \code{NULL} and initial values will
 be generated automatically.
 }
   \item{n.clones}{
 An integer vector containing the numbers of clones to use iteratively.
 }
   \item{multiply}{
-Numeric or character index for list element(s) in the \code{data} 
+Numeric or character index for list element(s) in the \code{data}
 argument to be multiplied by the number of clones instead of repetitions.
 }
   \item{unchanged}{
-Numeric or character index for list element(s) in the \code{data} 
+Numeric or character index for list element(s) in the \code{data}
 argument to be left unchanged.
 }
   \item{update}{
-Numeric or character index for list element(s) in the \code{data} 
-argument that has to be updated by \code{updatefun} in each iterations. 
-This usually is for making priors more informative, and enhancing 
+Numeric or character index for list element(s) in the \code{data}
+argument that has to be updated by \code{updatefun} in each iterations.
+This usually is for making priors more informative, and enhancing
 convergence. See Details and Examples.
 }
   \item{updatefun}{
-A function to use for updating \code{data[[update]]}. 
+A function to use for updating \code{data[[update]]}.
 It should take an 'mcmc.list' object as 1st argument,
 2nd argument can be the number of clones.
 See Details and Examples.
 }
   \item{initsfun}{
-A function to use for generating initial values, \code{inits} are 
+A function to use for generating initial values, \code{inits} are
 updated by the object
 returned by this function from the second iteration. If initial values
-are not dependent on the previous iteration, this should be \code{NULL}, 
-otherwise, it should take an 'mcmc.list' object as 1st argument, 
-2nd argument can be the number of clones. 
+are not dependent on the previous iteration, this should be \code{NULL},
+otherwise, it should take an 'mcmc.list' object as 1st argument,
+2nd argument can be the number of clones.
 This feature is useful if latent nodes are provided in \code{inits}
 so it also requires to be cloned for subsequent iterations.
 See Details and Examples.
 }
   \item{flavour}{
-  If \code{"jags"}, the function \code{\link{jags.fit}} is called. 
+  If \code{"jags"}, the function \code{\link{jags.fit}} is called.
   If \code{"bugs"}, the function \code{\link{bugs.fit}} is called.
 }
   \item{n.chains}{
 Number of chains to generate.
 }
+  \item{return.all}{
+Logical. If \code{TRUE}, all the MCMC list objects corresponding to the sequence
+\code{n.clones} are returned for further inspection. Otherwise only
+the MCMC list corresponding to highest number of clones is returned
+with summary statistics for the rest.
+}
   \item{\dots}{
-  Other values supplied to \code{\link{jags.fit}}, or 
+  Other values supplied to \code{\link{jags.fit}}, or
   \code{\link{bugs.fit}}, depending on the \code{flavour} argument.
 }
 }
 \details{
-The function fits a JAGS/BUGS model with increasing numbers of clones, 
-as supplied by the argument \code{n.clones}. Data cloning is done by the 
+The function fits a JAGS/BUGS model with increasing numbers of clones,
+as supplied by the argument \code{n.clones}. Data cloning is done by the
 function \code{dclone} using
 the arguments \code{multiply} and \code{unchanged}.
 An updating function can be provided, see Examples.
@@ -95,7 +102,7 @@ An object inheriting from the class 'mcmc.list'.
 }
 \references{
 Lele, S.R., B. Dennis and F. Lutscher, 2007.
-Data cloning: easy maximum likelihood estimation for complex 
+Data cloning: easy maximum likelihood estimation for complex
 ecological models using Bayesian Markov chain Monte Carlo  methods.
 \emph{Ecology Letters} \strong{10}, 551--563.
 
@@ -107,11 +114,11 @@ mixed models using data cloning.
 
 Solymos, P., 2010. dclone: Data Cloning in R.
 \emph{The R Journal} \strong{2(2)}, 29--37.
-URL: \url{http://journal.r-project.org/archive/2010-2/RJournal_2010-2_Solymos.pdf}
+URL: \url{https://journal.r-project.org/archive/2010-2/RJournal_2010-2_Solymos.pdf}
 }
 \author{
-Peter Solymos, \email{solymos@ualberta.ca}, 
-implementation is based on many discussions 
+Peter Solymos, \email{solymos@ualberta.ca},
+implementation is based on many discussions
 with Khurram Nadeem and Subhash Lele.
 }
 \seealso{
@@ -227,7 +234,7 @@ summary(mod)
 ## Using WinBUGS/OpenBUGS
 library(R2WinBUGS)
 data(schools)
-dat <- list(J = nrow(schools), y = schools$estimate, 
+dat <- list(J = nrow(schools), y = schools$estimate,
     sigma.y = schools$sd)
 bugs.model <- function(){
        for (j in 1:J){
@@ -238,24 +245,24 @@ bugs.model <- function(){
        mu.theta ~ dnorm (0.0, 1.0E-6)
        tau.theta <- pow(sigma.theta, -2)
        sigma.theta ~ dunif (0, 1000)
-     }  
+     }
 inits <- function(){
     list(theta=rnorm(nrow(schools), 0, 100), mu.theta=rnorm(1, 0, 100),
          sigma.theta=runif(1, 0, 100))
 }
 param <- c("mu.theta", "sigma.theta")
 if (.Platform$OS.type == "windows") {
-sim2 <- dc.fit(dat, param, bugs.model, n.clones=1:2, 
+sim2 <- dc.fit(dat, param, bugs.model, n.clones=1:2,
     flavour="bugs", program="WinBUGS", multiply="J",
     n.iter=2000, n.thin=1)
 summary(sim2)
 }
-sim3 <- dc.fit(dat, param, bugs.model, n.clones=1:2, 
+sim3 <- dc.fit(dat, param, bugs.model, n.clones=1:2,
     flavour="bugs", program="brugs", multiply="J",
     n.iter=2000, n.thin=1)
 summary(sim3)
 library(R2OpenBUGS)
-sim4 <- dc.fit(dat, param, bugs.model, n.clones=1:2, 
+sim4 <- dc.fit(dat, param, bugs.model, n.clones=1:2,
     flavour="bugs", program="openbugs", multiply="J",
     n.iter=2000, n.thin=1)
 summary(sim4)

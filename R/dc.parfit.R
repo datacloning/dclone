@@ -1,17 +1,18 @@
-dc.parfit <- 
-function(cl, data, params, model, inits, n.clones, multiply = NULL, unchanged = NULL, 
-update = NULL, updatefun = NULL, initsfun = NULL, flavour = c("jags", "bugs"), 
-n.chains = 3, partype = c("balancing", "parchains", "both"), ...)
+dc.parfit <-
+function(cl, data, params, model, inits, n.clones, multiply = NULL,
+unchanged = NULL, update = NULL, updatefun = NULL, initsfun = NULL,
+flavour = c("jags", "bugs"), n.chains = 3,
+partype = c("balancing", "parchains", "both"), return.all=FALSE, ...)
 {
     ## get defaults right for cl argument
     cl <- evalParallelArgument(cl, quit=TRUE)
     ## sequential evaluation falls back on dc.fit
     if (is.null(cl)) {
-        return(dc.fit(data, params, model, inits, n.clones, 
-            multiply = multiply, unchanged = unchanged, 
-            update = update, updatefun = updatefun, 
-            initsfun = initsfun, flavour = flavour, 
-            n.chains = n.chains, ...))
+        return(dc.fit(data, params, model, inits, n.clones,
+            multiply = multiply, unchanged = unchanged,
+            update = update, updatefun = updatefun,
+            initsfun = initsfun, flavour = flavour,
+            n.chains = n.chains, return.all=return.all, ...))
     }
     ## parallel evaluation starts here
     flavour <- match.arg(flavour)
@@ -41,17 +42,19 @@ n.chains = 3, partype = c("balancing", "parchains", "both"), ...)
     }
     ## multiple parallel chains
     if (partype == "parchains") {
-        mod <- dclone::.dcFit(data, params, model, inits, n.clones, 
-            multiply=multiply, unchanged=unchanged, 
-            update=update, updatefun=updatefun, 
-            initsfun=initsfun, flavour = flavour, 
-            cl=cl, parchains=TRUE, n.chains=n.chains, ...)
+        mod <- dclone::.dcFit(data, params, model, inits, n.clones,
+            multiply=multiply, unchanged=unchanged,
+            update=update, updatefun=updatefun,
+            initsfun=initsfun, flavour = flavour,
+            cl=cl, parchains=TRUE, n.chains=n.chains, return.all=return.all, ...)
     ## size balancing and balancing+parchains
     } else {
+        if (return.all)
+            stop("return.all=TRUE works only with 'parchains'")
         if (missing(n.clones))
             stop("'n.clones' argument must be provided")
-        if (identical(n.clones, 1))
-            stop("'n.clones = 1' gives the Bayesian answer, no need for DC")
+#        if (identical(n.clones, 1))
+#            stop("'n.clones = 1' gives the Bayesian answer, no need for DC")
         if (is.environment(data)) {
             warnings("'data' was environment: it was coerced into a list")
             data <- as.list(data)
@@ -101,40 +104,40 @@ n.chains = 3, partype = c("balancing", "parchains", "both"), ...)
                 on.exit(try(clean.jags.model(model)))
             }
         }
-        ## common data 
+        ## common data
         cldata <- list(data=data, params=params, model=model, inits=inits,
-            multiply=multiply, unchanged=unchanged, k=k, 
+            multiply=multiply, unchanged=unchanged, k=k,
             INIARGS=INIARGS, initsfun=initsfun, n.chains=n.chains,
             params.diag=params.diag)
         ## parallel computations
         balancing <- if (!getOption("dcoptions")$LB)
             "size" else "both"
-        dir <- if (inherits(cl, "SOCKcluster"))
-            getwd() else NULL
+#        dir <- if (inherits(cl, "SOCKcluster")) # model now has full path
+#            getwd() else NULL
         ## size balancing
         if (partype == "balancing") {
             ## parallel function
             dcparallel <- function(i, ...) {
                 cldata <- pullDcloneEnv("cldata", type = "model")
-                jdat <- dclone(cldata$data, i, multiply=cldata$multiply, 
+                jdat <- dclone(cldata$data, i, multiply=cldata$multiply,
                     unchanged=cldata$unchanged)
                 INITS <- if (!is.null(cldata$initsfun) && !cldata$INIARGS)
                     initsfun(,i) else cldata$inits
                 mod <- if (flavour == "jags") {
-                    jags.fit(data=jdat, params=cldata$params, model=cldata$model, 
+                    jags.fit(data=jdat, params=cldata$params, model=cldata$model,
                         inits=INITS, n.chains=cldata$n.chains, ...)
                 } else {
-                    bugs.fit(data=jdat, params=cldata$params, model=cldata$model, 
+                    bugs.fit(data=jdat, params=cldata$params, model=cldata$model,
                         inits=INITS, n.chains=cldata$n.chains, format="mcmc.list", ...)
                 }
                 vn <- varnames(mod)
                 params.diag <- vn[unlist(lapply(cldata$params.diag, grep, x=vn))]
                 if (i == max(k))
-                    return(mod) else return(list(dct=dclone::extractdctable(mod), 
+                    return(mod) else return(list(dct=dclone::extractdctable(mod),
                         dcd=dclone::extractdcdiag(mod[,params.diag])))
             }
             if (flavour == "jags") {
-                LIB <- c("dclone", "rjags") 
+                LIB <- c("dclone", "rjags")
             } else {
                 LIB <- "dclone"
                 if (is.null(PROGRAM))
@@ -146,10 +149,12 @@ n.chains = 3, partype = c("balancing", "parchains", "both"), ...)
                 if (PROGRAM == "openbugs")
                     LIB <- c(LIB, "R2OpenBUGS")
             }
-            pmod <- parDosa(cl, k, dcparallel, cldata, 
-                lib=LIB, balancing=balancing, size=k, 
-                rng.type=getOption("dcoptions")$RNG, 
-                cleanup=TRUE, dir=dir, unload=FALSE, ...)
+            pmod <- parDosa(cl, k, dcparallel, cldata,
+                lib=LIB, balancing=balancing, size=k,
+                rng.type=getOption("dcoptions")$RNG,
+                cleanup=TRUE,
+                dir=NULL, # model now has full path
+                unload=FALSE, ...)
             mod <- pmod[[times]]
             ## dctable
             dct <- lapply(1:(times-1), function(i) pmod[[i]]$dct)
@@ -182,22 +187,24 @@ n.chains = 3, partype = c("balancing", "parchains", "both"), ...)
             ## parallel function to evaluate by parDosa
             dcparallel <- function(i, ...) {
                 cldata <- pullDcloneEnv("cldata", type = "model")
-                jdat <- dclone(cldata$data, cldata$k[i], 
+                jdat <- dclone(cldata$data, cldata$k[i],
                     multiply=cldata$multiply, unchanged=cldata$unchanged)
                 mod <- if (flavour == "jags") {
-                    jags.fit(data=jdat, params=cldata$params, 
-                        model=cldata$model, inits=cldata$inits[[i]], 
+                    jags.fit(data=jdat, params=cldata$params,
+                        model=cldata$model, inits=cldata$inits[[i]],
                         n.chains=1, updated.model=FALSE, ...)
                 } else {
-                    bugs.fit(data=jdat, params=cldata$params, 
-                        model=cldata$model, inits=cldata$inits[[i]], 
+                    bugs.fit(data=jdat, params=cldata$params,
+                        model=cldata$model, inits=cldata$inits[[i]],
                         n.chains=1, format="mcmc.list", ...)
                 }
             }
-            pmod <- parDosa(cl, 1:(times*n.chains), dcparallel, cldata, 
-                lib=c("dclone", "rjags"), balancing=balancing, size=cldata$k, 
-                rng.type=getOption("dcoptions")$RNG, 
-                cleanup=TRUE, dir=dir, unload=FALSE, ...)
+            pmod <- parDosa(cl, 1:(times*n.chains), dcparallel, cldata,
+                lib=c("dclone", "rjags"), balancing=balancing, size=cldata$k,
+                rng.type=getOption("dcoptions")$RNG,
+                cleanup=TRUE,
+                dir=NULL, # model now has full path
+                unload=FALSE, ...)
             ## binding the chains for each k value
             assemblyfun <- function(mcmc) {
                 n.clones <- nclones(mcmc)
@@ -210,7 +217,7 @@ n.chains = 3, partype = c("balancing", "parchains", "both"), ...)
             }
             i.end <- 1:times*n.chains
             i.start <- i.end+1-n.chains
-            pmod <- lapply(1:times, function(i) 
+            pmod <- lapply(1:times, function(i)
                 assemblyfun(pmod[i.start[i]:i.end[i]]))
             mod <- pmod[[times]]
             ## dctable

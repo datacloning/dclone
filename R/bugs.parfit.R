@@ -79,7 +79,8 @@ program=c("winbugs", "openbugs", "brugs"), ...) ## only mcmc.list format is supp
             model=cldata$model,
             inits=cldata$inits[[i]], n.chains=1,
             seed=cldata$seed[i],
-            program=cldata$program, format="mcmc.list", ...)
+            program=cldata$program, format="mcmc.list",
+            working.directory=NULL, ...)
     }
     if (trace) {
         cat("\nParallel computation in progress\n\n")
@@ -88,8 +89,8 @@ program=c("winbugs", "openbugs", "brugs"), ...) ## only mcmc.list format is supp
     ## parallel computations
     balancing <- if (getOption("dcoptions")$LB)
         "load" else "none"
-    dir <- if (inherits(cl, "SOCKcluster"))
-        getwd() else NULL
+#    dir <- if (inherits(cl, "SOCKcluster")) # model now has full path
+#        getwd() else NULL
     LIB <- "dclone"
     if (program == "winbugs")
         LIB <- c(LIB, "R2WinBUGS")
@@ -101,7 +102,8 @@ program=c("winbugs", "openbugs", "brugs"), ...) ## only mcmc.list format is supp
     mcmc <- parDosa(cl, 1:n.chains, bugsparallel, cldata,
         lib=LIB,
         balancing=balancing, size=1,
-        rng.type=getOption("dcoptions")$RNG, cleanup=TRUE, dir=dir,
+        rng.type=getOption("dcoptions")$RNG, cleanup=TRUE,
+        dir=NULL, # model now has full path
         unload=FALSE, ...)
     ## binding the chains
     res <- as.mcmc.list(lapply(mcmc, as.mcmc))
