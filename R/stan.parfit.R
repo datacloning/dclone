@@ -104,7 +104,7 @@ function(cl, data, params, model, inits = NULL,
     fit0 <- sflist2stanfit(mcmc)
     ## dc info stuff
     if (format == "mcmc.list") {
-        res <- .rstan_as.mcmc.list.stanfit(fit0)
+        res <- As.mcmc.list(fit0)
         ## get rid of  'lp__'
         res <- res[,which(varnames(res) != "lp__")]
         if (stan.model)

@@ -54,7 +54,7 @@ function(data, params, model, inits = NULL,
     }
     ## dc info stuff
     if (format == "mcmc.list") {
-        res <- .rstan_as.mcmc.list.stanfit(fit0)
+        res <- As.mcmc.list(fit0)
         ## get rid of  'lp__'
         res <- res[,which(varnames(res) != "lp__")]
         if (stan.model)
@@ -70,105 +70,4 @@ function(data, params, model, inits = NULL,
         }
     }
     res
-}
-
-## internal function
-.rstan_as.mcmc.list.stanfit <- function (object, pars, ...) {
-    ## internal's internals
-    rstan_num_pars <- function (d) prod(d)
-    rstan_remove_empty_pars <- function (pars, model_dims) {
-        ind <- rep(TRUE, length(pars))
-        model_pars <- names(model_dims)
-        if (is.null(model_pars))
-            stop("model_dims need be a named list")
-        for (i in seq_along(pars)) {
-            p <- pars[i]
-            m <- match(p, model_pars)
-            if (!is.na(m) && prod(model_dims[[p]]) == 0)
-                ind[i] <- FALSE
-        }
-        pars[ind]
-    }
-    rstan_calc_starts <- function (dims) {
-        len <- length(dims)
-        s <- sapply(unname(dims), function(d) rstan_num_pars(d), USE.NAMES = FALSE)
-        cumsum(c(1, s))[1:len]
-    }
-    rstan_idx_col2rowm <- function (d) {
-        len <- length(d)
-        if (0 == len)
-            return(1)
-        if (1 == len)
-            return(1:d)
-        idx <- aperm(array(1:prod(d), dim = d))
-        return(as.vector(idx))
-    }
-    rstan_pars_total_indexes <- function (names, dims, fnames, pars) {
-        starts <- rstan_calc_starts(dims)
-        par_total_indexes <- function(par) {
-            p <- match(par, fnames)
-            if (!is.na(p)) {
-                names(p) <- par
-                attr(p, "row_major_idx") <- p
-                return(p)
-            }
-            p <- match(par, names)
-            np <- rstan_num_pars(dims[[p]])
-            if (np == 0)
-                return(NULL)
-            idx <- starts[p] + seq(0, by = 1, length.out = np)
-            names(idx) <- fnames[idx]
-            attr(idx, "row_major_idx") <- starts[p] +
-                rstan_idx_col2rowm(dims[[p]]) - 1
-            idx
-        }
-        idx <- lapply(pars, FUN = par_total_indexes)
-        nulls <- sapply(idx, is.null)
-        idx <- idx[!nulls]
-        names(idx) <- pars[!nulls]
-        idx
-    }
-    rstan_check_pars <- function (allpars, pars) {
-        pars_wo_ws <- gsub("\\s+", "", pars)
-        m <- which(match(pars_wo_ws, allpars, nomatch = 0) == 0)
-        if (length(m) > 0)
-            stop("no parameter ", paste(pars[m], collapse = ", "))
-        if (length(pars_wo_ws) == 0)
-            stop("no parameter specified (pars is empty)")
-        unique(pars_wo_ws)
-    }
-    rstan_check_pars_second <- function (sim, pars) {
-        if (missing(pars))
-            return(sim$pars_oi)
-        allpars <- c(sim$pars_oi, sim$fnames_oi)
-        rstan_check_pars(allpars, pars)
-    }
-    ## original def
-    pars <- if (missing(pars)) {
-        object@sim$pars_oi
-    } else {
-        rstan_check_pars_second(object@sim, pars)
-    }
-    pars <- rstan_remove_empty_pars(pars, object@sim$dims_oi)
-    tidx <- rstan_pars_total_indexes(object@sim$pars_oi, object@sim$dims_oi,
-        object@sim$fnames_oi, pars)
-    tidx <- lapply(tidx, function(x) attr(x, "row_major_idx"))
-    tidx <- unlist(tidx, use.names = FALSE)
-    lst <- vector("list", object@sim$chains)
-    for (ic in 1:object@sim$chains) {
-        x <- do.call(cbind, object@sim$samples[[ic]])[, tidx,
-            drop = FALSE]
-        warmup2 <- object@sim$warmup2[ic]
-        if (warmup2 > 0)
-            x <- x[-(1:warmup2), ]
-        x <- as.matrix(x)
-        end <- object@sim$iter
-        thin <- object@sim$thin
-        start <- end - (nrow(x) - 1) * thin
-        class(x) <- "mcmc"
-        attr(x, "mcpar") <- c(start, end, thin)
-        lst[[ic]] <- x
-    }
-    class(lst) <- "mcmc.list"
-    return(lst)
 }
