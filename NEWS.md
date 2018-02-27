@@ -11,7 +11,7 @@
 
 * dc.fit: n.clones=1 is acceptable and will not throw error.
 * dc.fit and dc.parfit gained return.all argument so that
-  not only the mcmc.list corresponding to highes number of
+  not only the mcmc.list corresponding to highest number of
   clones is returned.
 * write.jags.model does not write into the user's working directory
   but uses tempdir() as per CRAN requirements. The function
