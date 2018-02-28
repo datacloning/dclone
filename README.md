@@ -10,7 +10,7 @@ complex models using data cloning and Bayesian
 Markov chain Monte Carlo methods
 as described in Solymos 2010 ([R Journal 2(2):29--37](http://journal.r-project.org/archive/2010-2/RJournal_2010-2_Solymos.pdf)).
 Sequential and parallel MCMC support
-for JAGS, WinBUGS and OpenBUGS.
+for JAGS, WinBUGS, OpenBUGS, and Stan.
 
 Find help on the [Dclone users mailing list](https://groups.google.com/forum/#!forum/dclone-users).
 More resources at [datacloning.org](http://datacloning.org).
