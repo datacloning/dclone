@@ -17,7 +17,7 @@ function (x, y, type = "l", code = 0, width = 0, vertical = TRUE, col=1, bg = NA
     bg <- rep(bg, n)[1:n]
     col <- rep(col, n)[1:n]
     for (i in 1:n) {
-        if (type == "b" && !is.na(bg)) {
+        if (type == "b") {
             if (vertical) {
                 polygon(c(x1[i], x1[i], x2[i], x2[i]), c(y[i,], rev(y[i,])),
                     col=bg[i], border=col[i])
