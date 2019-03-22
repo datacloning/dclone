@@ -19,9 +19,11 @@ function (x, y, type = "l", code = 0, width = 0, vertical = TRUE, col=1, bg = NA
     for (i in 1:n) {
         if (type == "b" && !is.na(bg)) {
             if (vertical) {
-                polygon(c(x1[i], x1[i], x2[i], x2[i]), c(y[i,], rev(y[i,])), col=bg[i])
+                polygon(c(x1[i], x1[i], x2[i], x2[i]), c(y[i,], rev(y[i,])),
+                    col=bg[i], border=col[i])
             } else {
-                polygon(c(y[i,], rev(y[i,])), c(x1[i], x1[i], x2[i], x2[i]), col=bg[i])
+                polygon(c(y[i,], rev(y[i,])), c(x1[i], x1[i], x2[i], x2[i]),
+                    col=bg[i], border=col[i])
             }
         }
     }
