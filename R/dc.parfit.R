@@ -3,7 +3,8 @@ function(cl, data, params, model, inits, n.clones, multiply = NULL,
 unchanged = NULL, update = NULL, updatefun = NULL, initsfun = NULL,
 flavour = c("jags", "bugs", "stan"),
 n.chains = 3,
-partype = c("balancing", "parchains", "both"), return.all=FALSE, ...)
+partype = c("balancing", "parchains", "both"),
+return.all=FALSE, check.nclones=TRUE, ...)
 {
     ## get defaults right for cl argument
     cl <- evalParallelArgument(cl, quit=FALSE)
@@ -13,7 +14,8 @@ partype = c("balancing", "parchains", "both"), return.all=FALSE, ...)
             multiply = multiply, unchanged = unchanged,
             update = update, updatefun = updatefun,
             initsfun = initsfun, flavour = flavour,
-            n.chains = n.chains, return.all=return.all, ...))
+            n.chains = n.chains, return.all=return.all,
+            check.nclones=check.nclones, ...))
     }
     ## parallel evaluation starts here
     flavour <- match.arg(flavour)
@@ -49,7 +51,8 @@ partype = c("balancing", "parchains", "both"), return.all=FALSE, ...)
             multiply=multiply, unchanged=unchanged,
             update=update, updatefun=updatefun,
             initsfun=initsfun, flavour = flavour,
-            cl=cl, parchains=TRUE, n.chains=n.chains, return.all=return.all, ...)
+            cl=cl, parchains=TRUE, n.chains=n.chains,
+            return.all=return.all, check.nclones=check.nclones, ...)
     ## size balancing and balancing+parchains
     } else {
         if (return.all)

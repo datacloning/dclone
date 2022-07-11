@@ -15,7 +15,7 @@ dc.fit(data, params, model, inits, n.clones,
     multiply = NULL, unchanged = NULL,
     update = NULL, updatefun = NULL, initsfun = NULL,
     flavour = c("jags", "bugs", "stan"), n.chains = 3,
-    return.all=FALSE, ...)
+    return.all=FALSE, check.nclones=TRUE, ...)
 }
 \arguments{
   \item{data}{
@@ -85,6 +85,12 @@ Logical. If \code{TRUE}, all the MCMC list objects corresponding to the sequence
 \code{n.clones} are returned for further inspection. Otherwise only
 the MCMC list corresponding to highest number of clones is returned
 with summary statistics for the rest.
+}
+  \item{check.nclones}{
+Logical, whether to check and ensure that values of \code{n.clones}
+are unique and increasing. \code{check.nclones = FALSE} means that
+\code{n.clones} is used as is, thus it is possible to supply
+repeated values but still use the update functionality.
 }
   \item{\dots}{
   Other values supplied to \code{\link{jags.fit}}, or

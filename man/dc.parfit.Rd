@@ -15,7 +15,7 @@ dc.parfit(cl, data, params, model, inits, n.clones,
     update = NULL, updatefun = NULL, initsfun = NULL,
     flavour = c("jags", "bugs", "stan"), n.chains = 3,
     partype=c("balancing", "parchains", "both"),
-    return.all=FALSE, ...)
+    return.all=FALSE, check.nclones=TRUE, ...)
 }
 \arguments{
   \item{cl}{
@@ -107,6 +107,12 @@ Logical. If \code{TRUE}, all the MCMC list objects corresponding to the sequence
 (this only works with \code{partype = "parchains"}). Otherwise only
 the MCMC list corresponding to highest number of clones is returned
 with summary statistics for the rest.
+}
+  \item{check.nclones}{
+Logical, whether to check and ensure that values of \code{n.clones}
+are unique and increasing. \code{check.nclones = FALSE} means that
+\code{n.clones} is used as is, thus it is possible to supply
+repeated values but still use the update functionality.
 }
   \item{\dots}{
   Other values supplied to \code{\link[dclone]{jags.fit}}, or

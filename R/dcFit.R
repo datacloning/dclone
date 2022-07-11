@@ -2,7 +2,8 @@
 function(data, params, model, inits, n.clones, multiply = NULL, unchanged = NULL,
 update = NULL, updatefun = NULL, initsfun = NULL,
 flavour = c("jags", "bugs", "stan"),
-n.chains=3, cl = NULL, parchains = FALSE, return.all=FALSE, ...)
+n.chains=3, cl = NULL, parchains = FALSE, return.all=FALSE,
+check.nclones = TRUE, ...)
 {
     flavour <- match.arg(flavour)
     ## initail evals
@@ -15,8 +16,10 @@ n.chains=3, cl = NULL, parchains = FALSE, return.all=FALSE, ...)
         data <- as.list(data)
     }
     ## determine k
-    k <- n.clones[order(n.clones)]
-    k <- unique(k)
+    if (check.nclones) {
+        k <- n.clones[order(n.clones)]
+        k <- unique(k)
+    }
     times <- length(k)
     rhat.crit <- getOption("dcoptions")$rhat
     trace <- getOption("dcoptions")$verbose
