@@ -19,6 +19,8 @@ check.nclones = TRUE, ...)
     if (check.nclones) {
         k <- n.clones[order(n.clones)]
         k <- unique(k)
+    } else {
+        k <- n.clones
     }
     times <- length(k)
     rhat.crit <- getOption("dcoptions")$rhat
