@@ -27,7 +27,7 @@ Install the development version of the package from R using the
 `devtools` package:
 
 ```R
-devtools::install_github("datacloning/dclone")
+remotes::install_github("datacloning/dclone")
 ```
 
 User visible changes in the package are listed in the [NEWS](https://github.com/datacloning/dclone/blob/master/NEWS.md) file.

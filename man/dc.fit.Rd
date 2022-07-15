@@ -50,15 +50,17 @@ Numeric or character index for list element(s) in the \code{data}
 argument to be left unchanged.
 }
   \item{update}{
-Numeric or character index for list element(s) in the \code{data}
-argument that has to be updated by \code{updatefun} in each iterations.
+Character, the name of the list element(s) in the \code{data}
+argument that has to be updated by \code{updatefun} in each iteration.
 This usually is for making priors more informative, and enhancing
 convergence. See Details and Examples.
 }
   \item{updatefun}{
-A function to use for updating \code{data[[update]]}.
+A function to use for updating named elements in \code{data}.
 It should take an 'mcmc.list' object as 1st argument,
 2nd argument can be the number of clones.
+If \code{legth(update) > 1} the function must return a named list
+so that \code{data[update]} can be updated.
 See Details and Examples.
 }
   \item{initsfun}{

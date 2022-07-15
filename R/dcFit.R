@@ -115,9 +115,17 @@ check.nclones = TRUE, ...)
         }
         ## updating
         if (i < times) {
-            if (!is.null(update))
-                jdat[[update]] <- if (UPARGS)
+            if (!is.null(update)) {
+                jdatUp <- if (UPARGS)
                     updatefun(mod) else updatefun(mod, k[i+1])
+                if (length(update) > 1L) {
+                    if (!is.list(jdatUp))
+                        stop("updatefun must return a named list when length(update) > 1")
+                    jdat[update] <- jdatUp[update]
+                } else {
+                    jdat[[update]] <- jdatUp
+                }
+            }
             if (!is.null(initsfun))
                 inits <- if (INIARGS)
                     initsfun(mod) else initsfun(mod, k[i+1])
