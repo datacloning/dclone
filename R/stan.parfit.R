@@ -63,6 +63,8 @@ function(cl, data, params, model, inits = NULL,
             on.exit(try(clean.jags.model(model)))
             model_chr <- readLines(model)
         }
+    } else {
+        model_chr <- readLines(model)
     }
 
     ## Stan keep recompiling, need to find a better way to pass fit

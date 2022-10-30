@@ -24,6 +24,8 @@ function(data, params, model, inits = NULL,
         model <- write.jags.model(model)
         on.exit(try(clean.jags.model(model)))
         model_chr <- readLines(model)
+    } else {
+        model_chr <- readLines(model)
     }
     if (identical(fit, NA)) {
         fit0 <- stan(#file=normalizePath(model),
