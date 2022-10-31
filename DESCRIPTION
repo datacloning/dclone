@@ -3,13 +3,13 @@ Type: Package
 Title: Data Cloning and MCMC Tools for Maximum Likelihood Methods
 Version: 2.3-1
 Date: 2022-07-11
-Author: Peter Solymos
+Author: Peter Solymos [aut, cre] (<https://orcid.org/0000-0001-7337-1740>)
 Maintainer: Peter Solymos <solymos@ualberta.ca>
 Description: Low level functions for implementing
     maximum likelihood estimating procedures for
     complex models using data cloning and Bayesian
     Markov chain Monte Carlo methods
-    as described in Solymos 2010 (R Journal 2(2):29--37).
+    as described in Solymos 2010 <doi:10.32614/RJ-2010-011>.
     Sequential and parallel MCMC support
     for 'JAGS', 'WinBUGS', 'OpenBUGS', and 'Stan'.
 License: GPL-2
@@ -20,7 +20,8 @@ Imports: methods, stats, rjags (>= 4-4), rstan
 SystemRequirements: none, one or more of JAGS (>= 3.0.0),
     WinBUGS (>= 1.4), OpenBUGS (>= 3.2.2), Stan
 URL: https://groups.google.com/forum/#!forum/dclone-users,
-    http://datacloning.org
+    http://datacloning.org,
+    https://github.com/datacloning/dclone
 BugReports: https://github.com/datacloning/dclone/issues
 LazyLoad: yes
 LazyData: true
