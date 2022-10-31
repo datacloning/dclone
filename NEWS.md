@@ -7,7 +7,7 @@
 * The update argument of dc.fit can be of length 1 or more,
   updatefun must return a list when length(update) > 1.
 * Bugfix: stan.fit and stan.parfit were not able to read in
-  model file because model_chr was undefined.
+  model file because model_chr was undefined ([#15](https://github.com/datacloning/dclone/issues/15)).
 * R2WinBUGS is now in Imports (fixes [#14](https://github.com/datacloning/dclone/issues/14)).
 
 ## Version 2.3-0, Mar 21, 2019
