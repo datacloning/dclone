@@ -2,7 +2,6 @@
 .git*
 .DS_Store
 .*~
-.travis.yml
-appveyor.yml
 ^.*\.Rproj$
 ^\.Rproj\.user$
+_tmp
