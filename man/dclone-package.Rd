@@ -78,7 +78,7 @@ Forum: \url{https://groups.google.com/forum/#!forum/dclone-users}
 
 Issues: \url{https://github.com/datacloning/dcmle/issues}
 
-Data cloning website: \url{http://datacloning.org}
+Data cloning website: \url{https://datacloning.org}
 
 Solymos, P., 2010. dclone: Data Cloning in R.
 \emph{The R Journal} \strong{2(2)}, 29--37.

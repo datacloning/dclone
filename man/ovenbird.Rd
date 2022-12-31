@@ -31,7 +31,7 @@ longitude/latitude coordinates of the sites.
 }
 \usage{data(ovenbird)}
 \source{
-Alberta Biodiversity Monitoring Institute, http://www.abmi.ca
+Alberta Biodiversity Monitoring Institute, https://www.abmi.ca
 }
 \examples{
 data(ovenbird)
