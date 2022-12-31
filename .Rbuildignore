@@ -1,7 +1,8 @@
-\.md
 .git*
 .DS_Store
 .*~
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^RELEASE\.R$
+^README\.md$
 _tmp

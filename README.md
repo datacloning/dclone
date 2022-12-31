@@ -23,8 +23,7 @@ Install the CRAN version of the package from R:
 install.packages("dclone")
 ```
 
-Install the development version of the package from R using the
-`devtools` package:
+Install the development version of the package:
 
 ```R
 remotes::install_github("datacloning/dclone")
