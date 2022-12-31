@@ -1,3 +1,65 @@
+#' Internal function for iterative model fitting with data cloning
+#' 
+#' This is the workhorse for \code{\link{dc.fit}} and \code{\link{dc.parfit}}.
+#' 
+#' 
+#' @param data A named list (or environment) containing the data.
+#' @param params Character vector of parameters to be sampled. It can be a list
+#' of 2 vectors, 1st element is used as parameters to monitor, the 2nd is used
+#' as parameters to use in calculating the data cloning diagnostics.
+#' @param model Character string (name of the model file), a function
+#' containing the model, or a \code{\link{custommodel}} object (see Examples).
+#' @param inits Optional specification of initial values in the form of a list
+#' or a function (see Initialization at \code{\link[rjags]{jags.model}}). If
+#' missing, will be treated as \code{NULL} and initial values will be generated
+#' automatically.
+#' @param n.clones An integer vector containing the numbers of clones to use
+#' iteratively.
+#' @param multiply Numeric or character index for list element(s) in the
+#' \code{data} argument to be multiplied by the number of clones instead of
+#' repetitions.
+#' @param unchanged Numeric or character index for list element(s) in the
+#' \code{data} argument to be left unchanged.
+#' @param update Numeric or character index for list element(s) in the
+#' \code{data} argument that has to be updated by \code{updatefun} in each
+#' iterations. This usually is for making priors more informative, and
+#' enhancing convergence. See Details and Examples.
+#' @param updatefun A function to use for updating \code{data[[update]]}. It
+#' should take an 'mcmc.list' object as 1st argument, 2nd argument can be the
+#' number of clones. See Details and Examples.
+#' @param initsfun A function to use for generating initial values,
+#' \code{inits} are updated by the object returned by this function from the
+#' second iteration. If initial values are not dependent on the previous
+#' iteration, this should be \code{NULL}, otherwise, it should take an
+#' 'mcmc.list' object as 1st argument, 2nd argument can be the number of
+#' clones. This feature is useful if latent nodes are provided in \code{inits}
+#' so it also requires to be cloned for subsequent iterations. See Details and
+#' Examples.
+#' @param flavour If \code{"jags"}, the function \code{\link{jags.fit}} is
+#' called.  If \code{"bugs"}, the function \code{\link{bugs.fit}} is called.
+#' If \code{"stan"}, the function \code{\link{stan.fit}} is called.
+#' @param n.chains Number of chains to generate.
+#' @param cl A cluster object created by \code{\link[parallel]{makeCluster}},
+#' or an integer, see \code{\link{parDosa}} and
+#' \code{\link{evalParallelArgument}}.
+#' @param parchains Logical, whether parallel chains should be run.
+#' @param return.all Logical. If \code{TRUE}, all the MCMC list objects
+#' corresponding to the sequence \code{n.clones} are returned for further
+#' inspection (this only works with \code{partype = "parchains"}). Otherwise
+#' only the MCMC list corresponding to highest number of clones is returned
+#' with summary statistics for the rest.
+#' @param check.nclones Logical, whether to check and ensure that values of
+#' \code{n.clones} are unique and increasing. \code{check.nclones = FALSE}
+#' means that \code{n.clones} is used as is, thus it is possible to supply
+#' repeated values but still use the update functionality.
+#' @param \dots Other values supplied to \code{\link{jags.fit}}, or
+#' \code{\link{bugs.fit}}, depending on the \code{flavour} argument.
+#' @return An object inheriting from the class 'mcmc.list'.
+#' @author Peter Solymos, \email{solymos@@ualberta.ca}, implementation is based
+#' on many discussions with Khurram Nadeem and Subhash Lele.
+#' @seealso \code{\link{dc.fit}}, \code{\link{dc.parfit}}
+#' @keywords models htest
+#' @export .dcFit
 .dcFit <-
 function(data, params, model, inits, n.clones, multiply = NULL, unchanged = NULL,
 update = NULL, updatefun = NULL, initsfun = NULL,

@@ -1,3 +1,23 @@
+#' Update jags models on parallel workers
+#' 
+#' Update the Markov chain associated with the model on parallel workers.
+#' (This represents the 'burn-in' phase when nodes are not monitored.)
+#' 
+#' 
+#' @param cl A cluster object created by \code{\link[parallel]{makeCluster}},
+#' or an integer. It can also be \code{NULL}, see \code{\link{parDosa}}.
+#' @param object character, name of a jags model object
+#' @param n.iter number of iterations of the Markov chain to run
+#' @param list() additional arguments to the update method, see
+#' \code{\link[rjags]{update.jags}}
+#' @return The \code{parUpdate} function modifies the original object on
+#' parallel workers and returns \code{NULL}.
+#' @author Peter Solymos, \email{solymos@@ualberta.ca}
+#' @seealso \code{\link[rjags]{update.jags}}
+#' 
+#' See example on help page of \code{\link{parCodaSamples}}.
+#' @keywords models
+#' @export parUpdate
 parUpdate <-
 function(cl, object, n.iter = 1, ...)
 {
