@@ -134,7 +134,7 @@ NULL
 #' 
 #' Issues: \url{https://github.com/datacloning/dcmle/issues}
 #' 
-#' Data cloning website: \url{http://datacloning.org}
+#' Data cloning website: \url{https://datacloning.org}
 #' 
 #' Solymos, P., 2010. dclone: Data Cloning in R. \emph{The R Journal}
 #' \strong{2(2)}, 29--37. URL:
@@ -244,7 +244,7 @@ NULL
 #' 
 #' @name ovenbird
 #' @docType data
-#' @source Alberta Biodiversity Monitoring Institute, http://www.abmi.ca
+#' @source Alberta Biodiversity Monitoring Institute, https://www.abmi.ca
 #' @keywords datasets
 #' @examples
 #' 

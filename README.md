@@ -1,19 +1,19 @@
 # dclone: Data Cloning and MCMC Tools for Maximum Likelihood Methods
 
-[![CRAN version](http://www.r-pkg.org/badges/version/dclone)](http://cran.rstudio.com/web/packages/dclone/index.html)
-[![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/grand-total/dclone)](http://www.rdocumentation.org/packages/dclone)
+[![CRAN version](https://www.r-pkg.org/badges/version/dclone)](https://CRAN.R-project.org/package=dclone)
+[![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/dclone)](https://www.rdocumentation.org/packages/dclone)
 [![Linux build status](https://travis-ci.org/datacloning/dclone.svg?branch=master)](https://travis-ci.org/datacloning/dclone)
 
 Low level functions for implementing
 maximum likelihood estimating procedures for
 complex models using data cloning and Bayesian
 Markov chain Monte Carlo methods
-as described in Solymos 2010 ([R Journal 2(2):29--37](http://journal.r-project.org/archive/2010-2/RJournal_2010-2_Solymos.pdf)).
+as described in Solymos 2010 ([R Journal 2(2):29--37](https://journal.r-project.org/archive/2010-2/RJournal_2010-2_Solymos.pdf)).
 Sequential and parallel MCMC support
 for JAGS, WinBUGS, OpenBUGS, and Stan.
 
 Find help on the [Dclone users mailing list](https://groups.google.com/forum/#!forum/dclone-users).
-More resources at [datacloning.org](http://datacloning.org).
+More resources at [datacloning.org](https://datacloning.org).
 
 ## Versions
 
