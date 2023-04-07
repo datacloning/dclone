@@ -24,7 +24,7 @@ density = TRUE, contour = TRUE, mean = TRUE, ...)
     }
     panel.hist.density <- function(x,...) {
         usr <- par("usr")
-        on.exit(par(usr))
+        on.exit(par(usr = usr))
         par(usr = c(usr[1:2], 0, 1.5) )
         h <- hist(x, n, plot = FALSE)
         breaks <- h$breaks
