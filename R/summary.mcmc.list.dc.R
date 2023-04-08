@@ -12,13 +12,14 @@ function(object, quantiles = c(0.025, 0.25, 0.5, 0.75, 0.975), ...)
     } else rhat <- NA
     if (nvar(object) > 1) {
         out$statistics <- cbind(out$statistics[,1:2],
-            "DC SD"=dcsd(object),
+            "DC SD"=unname(dcsd(object)),
             out$statistics[,3:4],
-            "R hat" = rhat)
+            "R hat" = unname(rhat))
     } else {
-        tmp <- c(out$statistics[1:2], "DC SD"=dcsd(object),
+        tmp <- c(out$statistics[1:2],
+            "DC SD"=unname(dcsd(object)),
             out$statistics[3:4],
-            "R hat" = rhat)
+            "R hat" = unname(rhat))
         out$statistics <- matrix(tmp, nrow=1)
         dimnames(out$statistics) <- list(varnames(object), names(tmp))
     }
