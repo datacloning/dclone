@@ -1,14 +1,14 @@
 # dclone package version history
 
-## Version 2.3-1, July 11, 2022
+## Version 2.3-1, June 27, 2023
 
-* The strict uniqueness of n.clones in dc.fit can be relaxed 
+* The strict uniqueness of n.clones in dc.fit can be relaxed
   by the new check.nclones argument.
 * The update argument of dc.fit can be of length 1 or more,
   updatefun must return a list when length(update) > 1.
 * Bugfix: stan.fit and stan.parfit were not able to read in
-  model file because model_chr was undefined ([#15](https://github.com/datacloning/dclone/issues/15)).
-* R2WinBUGS is now in Imports (fixes [#14](https://github.com/datacloning/dclone/issues/14)).
+  model file because model_chr was undefined (#15).
+* R2WinBUGS is now in Imports (#14).
 
 ## Version 2.3-0, Mar 21, 2019
 

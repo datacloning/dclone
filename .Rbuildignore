@@ -6,3 +6,4 @@
 ^RELEASE\.R$
 ^README\.md$
 _tmp
+^RELEASE\.R$

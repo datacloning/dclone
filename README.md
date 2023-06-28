@@ -1,8 +1,8 @@
 # dclone: Data Cloning and MCMC Tools for Maximum Likelihood Methods
 
-[![CRAN version](https://www.r-pkg.org/badges/version/dclone)](https://cran.rstudio.com/web/packages/dclone/index.html)
-[![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/dclone)](https://www.rdocumentation.org/packages/dclone)
-[![Linux build status](https://travis-ci.org/datacloning/dclone.svg?branch=master)](https://travis-ci.org/datacloning/dclone)
+[![CRAN version](https://www.r-pkg.org/badges/version/dclone)](https://CRAN.R-project.org/package=dclone)
+[![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/dclone)](https://www.rdocumentation.org/packages/dclone/)
+[![check](https://github.com/datacloning/dclone/actions/workflows/check.yml/badge.svg)](https://github.com/datacloning/dclone/actions/workflows/check.yml)
 
 Low level functions for implementing
 maximum likelihood estimating procedures for
