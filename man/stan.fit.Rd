@@ -85,7 +85,7 @@ model (therefore \code{fit} is ignored), and might not be
 very quick to run.
 }
 \author{
-Peter Solymos, \email{solymos@ualberta.ca}
+Peter Solymos
 }
 \seealso{
 Underlying functions:

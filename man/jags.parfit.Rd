@@ -72,7 +72,7 @@ running more than 4 chains. See Examples and
 An \code{mcmc.list} object.
 }
 \author{
-Peter Solymos, \email{solymos@ualberta.ca}
+Peter Solymos
 }
 \seealso{
 Sequential version: \code{\link[dclone]{jags.fit}}

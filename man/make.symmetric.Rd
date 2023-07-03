@@ -31,7 +31,7 @@ The function works for any matrix,
 even for those not intended to be symmetric.
 }
 \author{
-Peter Solymos, \email{solymos@ualberta.ca}
+Peter Solymos
 }
 \examples{
 x <- as.matrix(as.dist(matrix(1:25, 5, 5)))

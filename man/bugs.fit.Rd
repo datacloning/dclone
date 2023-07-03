@@ -88,7 +88,7 @@ into 'mcmc.list' and retrieves
 data cloning information as well.
 }
 \author{
-Peter Solymos, \email{solymos@ualberta.ca}
+Peter Solymos
 }
 \seealso{
 Underlying functions: 

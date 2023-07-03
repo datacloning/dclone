@@ -133,7 +133,7 @@ This splitting is non-deterministic (might not be reproducible).
 Usually a list with results returned by the cluster.
 }
 \author{
-Peter Solymos, \email{solymos@ualberta.ca}
+Peter Solymos
 }
 \seealso{
 Size balancing: \code{\link{parLapplySB}}, \code{\link{parLapplySLB}},

@@ -126,7 +126,7 @@ Solymos, P., 2010. dclone: Data Cloning in R.
 URL: \url{https://journal.r-project.org/archive/2010-2/RJournal_2010-2_Solymos.pdf}
 }
 \author{
-Peter Solymos, \email{solymos@ualberta.ca},
+Peter Solymos,
 implementation is based on many discussions
 with Khurram Nadeem and Subhash Lele.
 }

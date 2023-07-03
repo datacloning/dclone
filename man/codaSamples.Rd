@@ -29,7 +29,7 @@ codaSamples(model, variable.names, n.iter, thin = 1, na.rm = TRUE, ...)
   \code{\link{updated.model}} attribute as it is equivalent to the
   input jags model object.
 }
-\author{Peter Solymos, \email{solymos@ualberta.ca}}
+\author{Peter Solymos}
 \seealso{\code{\link[rjags]{coda.samples}},
 \code{\link[rjags]{update.jags}},
 \code{\link[rjags]{jags.model}}

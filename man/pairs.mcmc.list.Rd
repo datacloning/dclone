@@ -61,7 +61,7 @@ The function returns \code{NULL} invisibly and
 produces a plot as a side effect.
 }
 \author{
-Peter Solymos, \email{solymos@ualberta.ca}
+Peter Solymos
 }
 \seealso{
 \code{\link{pairs}}, \code{\link[coda]{plot.mcmc.list}}

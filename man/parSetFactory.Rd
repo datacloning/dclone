@@ -36,7 +36,7 @@ parSetFactory(cl, name, type, state)
   When a module is loaded, all of its factory objects are active. This
   is also true if a module is unloaded and then reloaded.
 }
-\author{Peter Solymos, \email{solymos@ualberta.ca}}
+\author{Peter Solymos}
 \seealso{\code{\link[rjags]{list.modules}},
 \code{\link[rjags]{set.factory}}
 }

@@ -70,7 +70,7 @@ Main functions include:
 \author{
 Author: Peter Solymos
 
-Maintainer: Peter Solymos, \email{solymos@ualberta.ca}
+Maintainer: Peter Solymos
 }
 \references{
 

@@ -63,7 +63,7 @@ Adds error bars to an existing plot as a side effect.
 Returns \code{NULL} invisibly.
 }
 \author{
-Peter Solymos, \email{solymos@ualberta.ca}
+Peter Solymos
 }
 \seealso{
 \code{\link{lines}}, \code{\link{polygon}}

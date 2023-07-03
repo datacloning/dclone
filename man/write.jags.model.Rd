@@ -80,7 +80,7 @@ The return value includes the full path.
 which is a character vector.
 }
 \author{
-Peter Solymos, \email{solymos@ualberta.ca}
+Peter Solymos
 }
 \seealso{
 \code{\link[R2WinBUGS]{write.model}}, \code{\link{file.remove}}

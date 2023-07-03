@@ -65,7 +65,7 @@ Data cloning information is attached to the returned
 object if data argument has \code{n.clones} attribute.
 }
 
-\author{Peter Solymos, \email{solymos@ualberta.ca}}
+\author{Peter Solymos}
 \seealso{
 Original sequential function in \pkg{rjags}:
 \code{\link[rjags]{jags.model}}

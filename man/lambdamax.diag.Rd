@@ -69,7 +69,7 @@ URL: \url{https://journal.r-project.org/archive/2010-2/RJournal_2010-2_Solymos.p
 \author{
 Khurram Nadeem, \email{knadeem@math.ualberta.ca}
 
-Peter Solymos, \email{solymos@ualberta.ca}
+Peter Solymos
 }
 \seealso{
 Eigen decomposition: \code{\link{eigen}}

@@ -46,7 +46,7 @@ common environment, see \code{\link[rjags]{jags.model}} for details.
 An \code{n.clones} attribute is attached to the object when applicable.
 }
 
-\author{Peter Solymos, \email{solymos@ualberta.ca}}
+\author{Peter Solymos}
 \seealso{
 Underlying functions: \code{\link[rjags]{jags.model}}, 
 \code{\link[rjags]{update.jags}}

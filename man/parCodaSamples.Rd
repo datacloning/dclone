@@ -31,7 +31,7 @@ parCodaSamples(cl, model, variable.names, n.iter, thin = 1, na.rm = TRUE, ...)
 \value{
   An \code{mcmc.list} object with possibly an \code{n.clones} attribute.
 }
-\author{Peter Solymos, \email{solymos@ualberta.ca}}
+\author{Peter Solymos}
 \seealso{
 Original sequential function in \pkg{rjags}:
 \code{\link[rjags]{coda.samples}}

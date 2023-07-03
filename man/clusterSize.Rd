@@ -69,7 +69,7 @@ its arguments. As a side effect, a plot is produced
 (if \code{plot = TRUE}).
 }
 \author{
-Peter Solymos, \email{solymos@ualberta.ca}
+Peter Solymos
 }
 \examples{
 ## determine the number of workers needed

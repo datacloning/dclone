@@ -23,7 +23,7 @@ parUpdate(cl, object, n.iter=1, \ldots)
   The \code{parUpdate} function modifies the
   original object on parallel workers and returns \code{NULL}.
 }
-\author{Peter Solymos, \email{solymos@ualberta.ca}}
+\author{Peter Solymos}
 \seealso{\code{\link[rjags]{update.jags}}
 
 See example on help page of \code{\link{parCodaSamples}}.}

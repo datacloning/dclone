@@ -37,7 +37,7 @@ the \code{"base::BaseRNG"} factory.
 Returns a list of initial values with RNGs.
 }
 \author{
-Peter Solymos, \email{solymos@ualberta.ca}. Based on Martyn Plummer's 
+Peter Solymos. Based on Martyn Plummer's 
 \code{\link[rjags]{parallel.seeds}} function and code in 
 \code{\link[rjags]{jags.model}} for initial value handling in the 
 \pkg{rjags} package.

@@ -24,7 +24,7 @@ parListModules(cl)
   \item{quiet}{a logical. If \code{TRUE}, no message will be printed
     about loading the module}
 }
-\author{Peter Solymos, \email{solymos@ualberta.ca}}
+\author{Peter Solymos}
 \seealso{\code{\link[rjags]{list.modules}},
 \code{\link[rjags]{load.module}}, \code{\link[rjags]{unload.module}}}
 \examples{

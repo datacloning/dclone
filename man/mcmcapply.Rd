@@ -43,7 +43,7 @@ based on \code{FUN}, using all values in all chains of the MCMC object.
 iter, variable, chain, value.
 }
 \author{
-Peter Solymos, \email{solymos@ualberta.ca}
+Peter Solymos
 }
 \examples{
 data(regmod)

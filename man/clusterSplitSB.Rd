@@ -65,7 +65,7 @@ corresponding to \code{x}. Usually a list with results
 returned by the cluster.
 }
 \author{
-Peter Solymos, \email{solymos@ualberta.ca}
+Peter Solymos
 }
 \seealso{
 Related functions without size balancing:

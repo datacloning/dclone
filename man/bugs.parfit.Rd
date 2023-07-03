@@ -87,7 +87,7 @@ the multiple instances would try to read/write the same directory.
 An \code{mcmc.list} object.
 }
 \author{
-Peter Solymos, \email{solymos@ualberta.ca}
+Peter Solymos
 }
 \seealso{
 Sequential version: \code{\link[dclone]{bugs.fit}}

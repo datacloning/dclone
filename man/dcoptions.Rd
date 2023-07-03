@@ -43,7 +43,7 @@ Tags are the following:
     default is 1.}
 }
 \author{
-Peter Solymos, \email{solymos@ualberta.ca}
+Peter Solymos
 }
 \examples{
 ## set LB option, but store old value

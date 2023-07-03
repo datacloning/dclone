@@ -72,7 +72,7 @@ and \eqn{R_{hat}} values
 (as returned by \code{\link[coda]{gelman.diag}}).
 }
 \author{
-Peter Solymos, \email{solymos@ualberta.ca}
+Peter Solymos
 }
 \seealso{
 Underlying functions: \code{\link[rjags]{jags.model}}, 

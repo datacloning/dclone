@@ -93,7 +93,7 @@ No value returned.
  object of the correct name and mode is found.
 }
 \author{
-Peter Solymos, \email{solymos@ualberta.ca}
+Peter Solymos
 }
 \seealso{
 \code{\link{parDosa}}

@@ -110,7 +110,7 @@ repeated values but still use the update functionality.
 An object inheriting from the class 'mcmc.list'.
 }
 \author{
-Peter Solymos, \email{solymos@ualberta.ca},
+Peter Solymos,
 implementation is based on many discussions
 with Khurram Nadeem and Subhash Lele.
 }

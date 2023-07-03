@@ -75,7 +75,7 @@ convergence diagnostics were not satisfactory.
 \code{"updated.model"} attribute.
 }
 \author{
-Peter Solymos, \email{solymos@ualberta.ca}
+Peter Solymos
 }
 \seealso{
 \code{\link{jags.fit}}, \code{\link[rjags]{coda.samples}},
