@@ -1,8 +1,8 @@
 citHeader("To cite 'dclone' in publications use\nwith package version number:")
 
-citEntry(entry = "Article",
+bibentry(bibtype = "Article",
     title        = "dclone: Data Cloning in {R}",
-    author       = personList(as.person("P\\'{e}ter S\\'{o}lymos")),
+    author       = c(as.person("P\\'{e}ter S\\'{o}lymos")),
     journal      = "The R Journal",
     year         = "2010",
     volume       = "2",

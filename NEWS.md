@@ -1,5 +1,9 @@
 # dclone package version history
 
+## Version 2.3-2, July 2, 2023
+
+* Updated CITATION file using bibentry() as per CRAN request.
+
 ## Version 2.3-1, June 27, 2023
 
 * The strict uniqueness of n.clones in dc.fit can be relaxed
