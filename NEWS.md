@@ -1,5 +1,9 @@
 # dclone package version history
 
+## Version 2.3-2, July 3, 2023
+
+*
+
 ## Version 2.3-2, July 2, 2023
 
 * Updated CITATION file using bibentry() as per CRAN request.
