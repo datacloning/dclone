@@ -26,7 +26,7 @@ returned in an invisible named list. Such a list can be passed as an
 argument to \code{dcoptions} to restore the parameter values.
 Tags are the following:
 
-  \item{autoburnin}{logical, to use in \code{\link{gelman.diag}}
+  \item{autoburnin}{logical, to use in \code{\link[coda]{gelman.diag}}
     (default is \code{TRUE}).}
   \item{diag}{critical value to use for data cloning convergence
     diagnostics, default is 0.05.}
