@@ -2,8 +2,13 @@ Package: dclone
 Type: Package
 Title: Data Cloning and MCMC Tools for Maximum Likelihood Methods
 Version: 2.3-3
-Date: 2023-07-03
-Author: Peter Solymos [aut, cre] (<https://orcid.org/0000-0001-7337-1740>)
+Date: 2025-07-12
+Authors@R: 
+    c(person(given = "Peter",
+             family = "Solymos",
+             comment = c(ORCID = "0000-0001-7337-1740"),
+             role = c("aut", "cre"),
+             email = "psolymos@gmail.com"))
 Maintainer: Peter Solymos <psolymos@gmail.com>
 Description: Low level functions for implementing
     maximum likelihood estimating procedures for

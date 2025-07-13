@@ -1,8 +1,8 @@
 # dclone package version history
 
-## Version 2.3-2, July 3, 2023
+## Version 2.3-3, July 12, 2025
 
-*
+* Use Authors@R field in DESCRIPTION.
 
 ## Version 2.3-2, July 2, 2023
 
